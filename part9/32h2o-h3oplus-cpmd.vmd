@@ -1,0 +1,492 @@
+################################################################################
+# supporting functions
+################################################################################
+#
+# vmd tcl procedure: draw a cubic box grid with a given 
+#                    edgelength and centered at the origin.
+#
+# $Id: 32h2o-h3oplus-cpmd.vmd,v 1.6 2014/07/14 08:55:57 wwwadmin Exp $
+# Time-stamp: <2004-07-09 0929 akohlmey>
+#
+# Copyright (c) 2003 by <Axel.Kohlmeyer@theochem.ruhr-uni-bochum.de>
+#
+
+# add a cubic unitcell graphic to a molecule. molicule id, color 
+# and offset are optional.
+#
+# arguments: 
+#  cell  = edgelength
+#  molid = molecule id where the unitcell is added to (default top)
+####################################################################
+# modified script: 11th juli 2014 
+#
+# scripts failed if no H3O+ was found, 
+# fixed by assigmning the old position for the H3O+
+#
+#  Author: F.Uhl & A.Esser
+# 
+####################################################################
+
+
+proc draw_cubic_unitcell {cell {molid top} {col iceblue} {xoff 0.0} {yoff 0.0} {zoff 0.0}} {
+
+    if {![string compare $molid top]} {
+        set molid [molinfo top]
+    }
+
+    # set size and radius of spheres and cylinders
+    set chalf [expr  0.5 * $cell]
+    set srad [expr 0.006 * $cell]
+    set sres 15
+    set crad [expr 0.005 * $cell]
+    set cres 10
+    set off [list $xoff $yoff $zoff]
+
+    # define vertices of the unitcell
+    set vert(0) [list [expr -1.0 * $chalf] [expr -1.0 * $chalf] [expr -1.0 * $chalf]] 
+    set vert(1) [list [expr  1.0 * $chalf] [expr -1.0 * $chalf] [expr -1.0 * $chalf]]
+    set vert(2) [list [expr -1.0 * $chalf] [expr  1.0 * $chalf] [expr -1.0 * $chalf]]
+    set vert(3) [list [expr  1.0 * $chalf] [expr  1.0 * $chalf] [expr -1.0 * $chalf]]
+    set vert(4) [list [expr -1.0 * $chalf] [expr -1.0 * $chalf] [expr  1.0 * $chalf]]
+    set vert(5) [list [expr  1.0 * $chalf] [expr -1.0 * $chalf] [expr  1.0 * $chalf]]
+    set vert(6) [list [expr -1.0 * $chalf] [expr  1.0 * $chalf] [expr  1.0 * $chalf]]
+    set vert(7) [list [expr  1.0 * $chalf] [expr  1.0 * $chalf] [expr  1.0 * $chalf]]
+
+    graphics $molid color $col
+
+    # draw spheres into the vertices ...
+    set gid ""
+    for {set i 0} {$i < 8} {incr i} {
+        lappend gid [graphics $molid sphere [vecadd $vert($i) $off] radius $srad resolution $sres]
+    }
+
+    # ... and connect them with cylinders
+    foreach i {{0 1} {0 2} {0 4} {1 5} {2 3} {4 6} {1 3} {2 6} {4 5} {7 3} {7 5} {7 6}} {
+        lappend gid [graphics $molid cylinder [vecadd $vert([lindex $i 0]) $off] [vecadd $vert([lindex $i 1]) $off] radius $crad resolution $cres]
+    }
+
+    # return list of graphics indices so that they can be saved and deleted later.
+    return $gid
+}
+
+############################################################
+# vmd tcl procedure: set the unitcell parameters for the whole trajectory
+#
+# Time-stamp: <akohlmey 02.07.2003 10:38:17 yello.theochem.ruhr-uni-bochum.de>
+#
+# Copyright (c) 2003 by <Axel.Kohlmeyer@theochem.ruhr-uni-bochum.de>
+#
+
+# arguments: 
+#  molid = molecule id where the unitcell is added to (default top)
+
+proc set_unitcell {a b c {molid top} {alpha 90.0} {beta 90.0} {gamma 90.0}} {
+
+    if {![string compare $molid top]} {
+        set molid [molinfo top]
+    }
+
+    set n   [molinfo $molid get numframes]
+
+    for {set i 0} {$i < $n} {incr i} {
+        molinfo $molid set frame $i
+        molinfo $molid set a $a
+        molinfo $molid set b $b
+        molinfo $molid set c $c
+        molinfo $molid set alpha $alpha
+        molinfo $molid set beta $beta
+        molinfo $molid set gamma $gamma
+    }
+}
+
+######################################################################
+# pbcwrap                                                            #
+#                                                                    #
+# Wrap atoms of selection $sel around PBC unit cell boundaries.      #
+#                                                                    #
+# Author: Jan Saam                                                   #
+#         Institute for Biochemistry                                 #
+#         Charite Berlin                                             #
+#         Germany                                                    #
+#         saam@charite.de                                            #
+#         ++49-30-450-528-449                                        #
+#                                                                    #
+# Feel free to send comments, bugs, etc.                             #
+######################################################################
+
+package provide pbcwrap 1.0
+
+
+#########################################################################################
+# pbcwrap                                                                               #
+# ------------                                                                          #
+# Wraps atoms of selection $sel around PBC unit cell boundaries.                        #
+# Unit cell geometry is taken from vmd.
+#                                                                                       #
+# Options 'beg' and 'end' are used to denote the first and last frame to process,       #
+# option 'firsttime' allows to specify the first timestep in the xst-file to take into  #
+# account. With 'delta' you tell the program the time that lies between two frames in   #
+# the dcd-file, the corresponding records in the xst-file are chosen accordingly.       #
+# This can be useful if you preprocessed the trajectory with catdcd.                    #
+# Note that the first timestep in $xst is omitted unless you demand it by using		#
+# 'firsttime', because xst info starts at frame 0 while dcd files start at frame 1 	#
+# (when both are generated by NAMD).                   					#
+#											#
+# If you specify 'outfile' the control output is written to this file instead of the 	#
+# console. (The output helps checking if your dcd frames and xst times match.)		#
+#                                                                                       #
+# The wrapping of atoms is done by transforming the unit cell to a orthonormal cell     #
+# which allows to easily select atoms out side the cell (x<1 or x>1, ...).              #
+# After warping them along the coordinate axes into the cell, the system is             #
+# transformed back.     								#
+#                                                                                       #
+# Usage:                                                                                #
+# pbcwrap selection [molid] [beg $first] [end $last] [firsttime $firsttime]             #
+#         [delta $delta] [outfile $outfile]						#
+#                                                                                       #
+# Example:                                                                              #
+# set sel [atomselect top "segname OXY"]                                                #
+# pbcwrap $sel mysimulation.xst beg 100 end 200 firsttime 50000 delta 1000              #
+#											#
+# (The first frame of the trajectory is identified with timestep 50000 fs of the 	#
+# xst file. There are 1000 fs between two subsequent frames. Only frames 100-200 are	#
+# processed.)										#
+#########################################################################################
+
+proc pbcwrap {{molid 0} {ori {0.0 0.0 0.0}} } {
+    set numframes [molinfo $molid get numframes]
+    set sel [atomselect $molid "all"]
+    for {set frame 0} {$frame < $numframes} {incr frame} {
+        
+        # Get half length PBC vectors
+        molinfo $molid set frame $frame
+        lassign [molinfo $molid get {a b c}] a1 a2 a3
+        set a1 [vecscale 0.5 [list $a1 0 0]]
+        set a2 [vecscale 0.5 [list 0 $a2 0]]
+        set a3 [vecscale 0.5 [list 0 0 $a3]]
+
+        # Orthonormalize system:
+        # Find an orthonormal basis (in cartesian coords)
+        set obase [orthonormal_basis $a1 $a2 $a3]
+        set b_cartcoor  [basis_change $obase [list {1 0 0} {0 1 0} {0 0 1}] ]
+        set b2carti [trans_from_rotate $b_cartcoor]
+        set b2cart  [measure inverse $b2carti]
+
+        # Get coordinates of $a in terms of $obase
+        set m [basis_change [list $a1 $a2 $a3] $obase]
+        set rmat [measure inverse [trans_from_rotate $m]]
+        # actually: [transmult $b2cart $b2carti $rmat $b2cart]
+        set mat4 [transmult $rmat $b2cart]
+        
+
+        # Go to the right frame and transform into ONS
+        $sel frame $frame
+        $sel update
+        $sel moveby $ori
+        $sel move $mat4
+
+        # Now it is easy to do the selection: 
+        # The unit cell is now a rectangular box of size 2x2x2 A.
+        # Let's wrap atoms around the periodic boundaries
+        set outsel [atomselect top "([$sel text]) and (not same residue as (x>-1))" frame $frame]
+        $outsel moveby { 2  0  0}
+        set outsel [atomselect top "([$sel text]) and (not same residue as (x<1))"  frame $frame]
+        $outsel moveby {-2  0  0}
+        set outsel [atomselect top "([$sel text]) and (not same residue as (y>-1))" frame $frame]
+        $outsel moveby { 0  2  0}
+        set outsel [atomselect top "([$sel text]) and (not same residue as (y<1))"  frame $frame]
+        $outsel moveby { 0 -2  0}
+        set outsel [atomselect top "([$sel text]) and (not same residue as (z>-1))" frame $frame]
+        $outsel moveby { 0  0  2}
+        set outsel [atomselect top "([$sel text]) and (not same residue as (z<1))"  frame $frame]
+        $outsel moveby { 0  0 -2}
+
+        # Transform back
+        $sel move [measure inverse $mat4]
+    }
+}
+
+
+
+########################################################################################
+# check_pbcwrap                                                                        #
+# --------------                                                                       #
+# Check the results of pbc_wrap                                                        #
+# It does a simple distance check for every frame                                      #
+# If the wrapping was done right, atom distances below some value (default=1.9A)       #
+# should not occur, as they would be avoided during the simulation by VDW interaction. #
+# If you encounter a distance of lets say 0.6A, most likely something went wrong!      #
+# (Note: In case you smoothed the trajectory beforehand, you'll see much smaller       #
+# distances)                                                                           #
+########################################################################################
+
+proc check_pbc_wrap { sel {dist 1.9} } {
+   set sum 0
+   set molid [$sel molid]
+   set numframes [molinfo $molid get numframes]
+   set checksel [atomselect $molid "[$sel text] and within $dist of (not [$sel text])"]
+   for {set i 0} {$i<$numframes} {incr i} {
+      $checksel frame $i
+      $checksel update
+      set close [$checksel num]
+      puts "frame $i: $close atom distances under $dist A" 
+      incr sum $close
+   }
+   puts "Summary: $sum atom distances under $dist A in $i frames."
+}
+
+
+#############################################################################
+# basis_change                                                              #
+# ------------                                                              #         
+# Returns $base in coordinates of $obase. $obase must be orthonormal        #
+#############################################################################
+
+proc basis_change { base obase } {
+   set dim1 [llength $base]
+   set dim2 [llength [lindex $base 0]]
+   set cc ""
+   foreach i $obase {
+      set c ""
+      foreach j $base {
+	 lappend c [vecdot $j $i]
+      }
+      lappend cc $c
+   }
+   return $cc
+}
+
+#############################################################################
+# orthonormal_basis                                                         #
+# -----------------                                                         #         
+# Find an orthononal basis R^3 with $ob1 || $b1                             #
+#############################################################################
+
+proc orthonormal_basis { b1 b2 b3 } {
+   set ob1 $b1
+   set e1  [vecnorm $ob1]
+   set ob2 [vecsub $b2  [vecscale [vecdot $e1 $b2] $e1]]
+   set e2  [vecnorm $ob2]
+   set ob3 [vecsub $b3  [vecscale [vecdot $e1 $b3] $e1]]
+   set ob3 [vecsub $ob3 [vecscale [vecdot $e2 $b3] $e2]]
+   set e3  [vecnorm $ob3]
+   return [list $e1 $e2 $e3]
+}
+
+
+#VMD  --- start of VMD description block
+#Name:
+# Trajectory path
+#Synopsis:
+# Draws the path of the center of mass of a selection through an animation
+#Version:
+# 1.1
+#Uses VMD version:
+# 1.8
+#Ease of use:
+# 2
+#Procedures:
+# <li>trajectory_path selection {color blue} -- follows the center of
+# mass of the given selection.  Color is a solid color, or "scale" for color scale.
+#Description:
+# For each step in the animation, the center of mass of the selection is
+# calculated.  A new graphics molecule is created containing lines connected
+# successive coordinates.  The color is a solid color (default is blue) or
+# they are mapped to the color scale from lowest (= first trajectory frame)
+# to highest (= last trajectory frame).
+#Example:
+# <pre>
+# set water [atomselect top "resid 5243"]
+# trajectory_path $water scale
+#Files: 
+# <a href="trajectory_path.vmd">trajectory_path</a>
+#Author: 
+# Andrew Dalke &lt;dalke@ks.uiuc.edu&gt;
+#\VMD  --- end of block
+
+proc trajectory_path {selection {color blue} {update 0} {linewidth 1}} {
+
+    # save the current selection frame number
+    set sel_frame [$selection frame]
+    # molecule to draw graphics into
+    set gr_mol [$selection molindex]
+    # make the list of coordinates
+    set num_frames [molinfo $gr_mol get numframes]
+    set coords {}
+    for {set i 0} {$i < $num_frames} {incr i} {
+        $selection frame $i
+        if {$update} { $selection update }
+        # compute the center of mass and save it on the list
+        lappend coords [measure center $selection weight mass]
+    }
+
+    ##### now make the graphics
+    set gr_list {}
+    set coords [lassign $coords prev]
+
+    # use the color scale?
+    if {$color == "scale"} {
+        set count 0
+        incr num_frames
+        foreach coord $coords {
+            set color [expr 17 + int(1024 * ($count + 0.0) / ($num_frames + 0.0))]
+            graphics $gr_mol color $color
+            lappend gr_list [graphics $gr_mol line $prev $coord width $linewidth]
+            set prev $coord
+            incr count
+        }
+    } else {
+        # constant color
+        graphics $gr_mol color $color
+        foreach coord $coords {
+            lappend gr_list [graphics $gr_mol line $prev $coord width $linewidth]
+            set prev $coord
+        }
+    }
+
+    # return the selection to its original state
+    $selection frame $sel_frame
+    return $gr_list
+}
+#############################################################################
+# the real scrips starts here.
+
+
+# load trajectory and rewind
+mol new {GEOMETRY.xyz} type xyz
+animate delete all
+mol addfile {TRAJECTORY} type cpmd waitfor all
+animate goto 0
+set mol [molinfo top]
+
+puts "set unitcell for trajectory"
+set_unitcell 9.96 9.96 9.96
+draw_cubic_unitcell 9.96
+puts "wrap molecules back into unitcell via PBC"
+pbcwrap $mol {6.5 0.0 6.5}
+
+puts "create visualization"
+mol delrep 0 top
+mol representation VDW 0.250000 20.000000
+mol color Name
+mol selection {all}
+mol material Opaque
+mol addrep top
+mol representation DynamicBonds 1.300000 0.100000 6.000000
+mol addrep top
+
+mol representation HBonds 3.000000 30.000000 3.000000
+mol color ColorID 8
+mol addrep top
+
+mol representation VDW 0.60000 20.000000
+mol color ColorID 4
+mol selection {name O and user > 2}
+mol material Transparent
+mol addrep top
+mol selupdate 3 $mol on
+
+mol selection {all}
+mol color Name
+mol material Opaque
+
+mol rename top {32 H2O + 1 H3O+}
+
+puts "calculate number of bonded hydrogens and store in user field"
+#########################################
+# calculate number of bound hydrogens 
+# and store the result in the user field
+#######
+# prep
+set num [molinfo $mol get numframes]
+set ox  [atomselect $mol {name O}]
+set all [atomselect $mol {all}]
+
+# create a selection for each oxygen atom
+foreach i [$ox get index] {
+    set sel($i) [atomselect $mol "exwithin 1.3 of index $i"]
+}
+
+# loop over all frames and oxygens and 
+# store the number of hydrogens in user
+    set oldbc 0
+for {set n 0} {$n < $num} {incr n} {
+    set bc {}
+    set foundbc 0
+    foreach i [$ox get index] {
+        $sel($i) frame $n
+        $sel($i) update
+        $all frame $n
+        $all set user 0
+        #puts [$sel($i) num]
+        #puts $i
+        if { [$sel($i) num] > 2 } {
+        #puts $i 
+        #puts $n
+            set foundbc 1
+            set oldbc $i
+        #puts "i, oldbc"
+        #puts $i
+        #puts $oldbc
+        #puts "      "
+        } 
+        lappend bc [$sel($i) num]
+        ##puts [$sel($i) num]
+    }
+       #puts "frame, found, old, bc, bc2"
+       #puts $n
+       #puts $foundbc
+       #puts $oldbc
+       #puts $bc
+       #puts "     "
+    if { $foundbc == 0 } {
+       #puts $n
+       #puts $i
+       #puts $oldbc
+       set bc [lreplace $bc $oldbc $oldbc 3]
+       #puts $oldbc #[lindex $bc $oldbc]
+       #set bc($oldbc) 3
+       #puts $bc
+       #puts "     "
+    }
+
+    $ox frame $n
+    $ox set user $bc
+    ##puts $bc
+    #   if {$bc == 0} {
+    #   set $bc 1        
+    #    }
+    unset bc
+}
+
+# clean up selections
+foreach i [$ox get index] {
+    $sel($i) delete
+}
+$ox delete
+$all delete
+unset ox
+unset all
+unset sel
+unset i
+unset n
+##########################################
+#draw trajectory paths
+set ht  [atomselect $mol {index 97 or index 98 or index 76 or index 75 or index 92}]
+set hyd1 [atomselect $mol {index 75}]
+set hyd2 [atomselect $mol {index 76}]
+set hyd3 [atomselect $mol {index 92}]
+set hyd4 [atomselect $mol {index 97}]
+set hyd5 [atomselect $mol {index 98}]
+set h3op [atomselect $mol {name O and user > 2}]
+
+#trajectory_path $hyd1 blue 0 3
+#trajectory_path $hyd2 green 0 3
+#trajectory_path $hyd3 orange 0 3
+#trajectory_path $hyd4 purple 0 3
+#trajectory_path $hyd5 ochre 0 3
+trajectory_path $h3op yellow 1 2
+
+animate goto 0
+#animate speed 0.9
+#animate forward

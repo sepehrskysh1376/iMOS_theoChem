@@ -1,0 +1,90 @@
+#!/usr/local/bin/vmd
+# VMD version: 1.8.2
+
+##################################################
+# adjustable parameters:#
+#########################
+# file names
+set gro {nacl-water-big.gro}
+set trr {nacl-water-big.trr}
+# name of cation
+set cat {NA}
+# name of anion
+set ani {CL}
+# cutoff for cation solvation shell
+set ccut  3.1
+# cutoff for anion solvation shell
+set acut  3.9
+# cutoff for contact ion-pairs
+set cpcut 3.5
+# cutoff for solvent-separated ion-pairs
+set sscut 6.0
+##################################################
+
+# Display settings
+display projection   Orthographic
+display nearclip set 0.000000
+display depthcue   1
+
+# load trajectory and delete default visualization
+mol new $gro type gro waitfor all
+animate delete all
+mol addfile $trr type trr waitfor all
+mol delrep 0 top
+
+# viz 0:  ions
+mol representation VDW 0.500000 20.000000
+mol color Name
+mol selection "name $cat or name $ani"
+mol material Opaque
+mol addrep top
+
+# viz 1: cation water shell
+mol representation CPK 1.400000 0.900000 10.000000 6.000000
+mol selection "same residue as (name OW and within $ccut of name $cat)"
+mol addrep top
+mol selupdate 1 top 1
+
+# viz 2: anion water shell
+mol representation CPK 1.400000 0.900000 10.000000 6.000000
+mol selection "same residue as (name OW and within $acut of name $ani)"
+mol addrep top
+mol selupdate 2 top 1
+
+# viz 3: the rest as lines/points
+mol representation Lines 1.000000
+mol selection {all}
+mol addrep top
+
+# viz 4: cation solvation structure
+mol representation DynamicBonds $ccut 0.200000 10.000000
+mol color ColorID 15
+mol selection "(name OW and within $ccut of name $cat) or name $cat"
+mol addrep top
+mol selupdate 4 top 1
+
+# viz 5: anion solvation structure
+mol representation DynamicBonds $acut 0.200000 10.000000
+mol color ColorID 12
+mol selection "(name OW and within $acut of name $ani) or name $ani"
+mol addrep top
+mol selupdate 5 top 1
+
+# viz 6: solvent separated ion pairs
+mol representation DynamicBonds $sscut 0.300000 10.000000
+mol color ColorID 3
+mol selection "name $cat or name $ani"
+mol addrep top
+
+# viz 7: solvent separated ion pairs
+mol representation DynamicBonds $cpcut 0.400000 10.000000
+mol color ColorID 4
+mol selection "name $cat or name $ani"
+mol addrep top
+
+mol rename top "$cat - $ani Electrolyte"
+
+# go back to the beginning of the trajectory
+animate goto 0
+animate speed 0.5
+

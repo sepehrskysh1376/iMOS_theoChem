@@ -1,0 +1,90 @@
+; Uses flexible TIP4P by Lawrence and Skinner
+; C.P. Lawrence, J.L. Skinner, Chem. Phys. Lett. 372 (2003) 842-847.
+;
+; Based on original TIP4P by Jorgensen et al.
+; W.L. Jorgensen, J. Chandrasekhar, J.D. Madura, R.W. Impey, M.L. Klein,
+; J. Chem. Phys. 79 (1983) 926-935.
+;
+
+[ defaults ]
+; We need combination rule 3 (geometric) for OPLS compatibility!
+; The ions were parametrized in such a way by Jensen & Jorgensen
+; Fudge also taken from OPLS, but that doesnt matter for ion/water systems
+; nbfunc        comb-rule       gen-pairs       fudgeLJ fudgeQQ
+1               3               yes             0.5     0.5
+
+
+[ atomtypes ]
+; Flexible TIP4P water
+; original TIP4 parameters C^6 = 610 kcalA6/mol, C^12 = 6e5 kcalA12/mol
+;name     mass          charge   ptype   sigma         eps
+   OW    15.99940       0.000     A      3.15358E-01   6.48694E-01
+   HW     1.00800       0.000     A      0.00000E+00   0.00000E+00
+   MW     0.00000       0.000     D      0.00000E+00   0.00000E+00
+
+;C.-P. Lawrence and J.-L. Skinner, Chem. Phys. Lett. 372, 842-847 (2003)
+;Flexible TIP4P model for molecular dynamics simulations of liquid water
+;
+; Note the strange order of atoms to make it faster in gromacs.
+;
+[ moleculetype ]
+; molname	nrexcl
+SOL		2
+
+[ atoms ]
+; id	at type	res nr 	residu name	at name	cg nr	charge
+#ifdef _FF_OPLS
+1	opls_113	1	SOL	 OW	1       0.0
+2	opls_114	1	SOL	HW1	1	0.52
+3	opls_114	1	SOL	HW2	1	0.52
+4	opls_115	1	SOL	 MW	1      -1.04
+#else
+#ifdef _FF_GROMOS96
+1	OWT4		1	SOL	 OW	1       0.0    15.9994
+2	H		1	SOL	HW1	1	0.52 	1.008	
+3	H		1	SOL	HW2	1	0.52 	1.008
+4	IW		1	SOL	 MW	1      -1.04    0.0
+#else
+1	OW		1	SOL	 OW	1       0.0
+2	HW		1	SOL	HW1	1	0.52
+3	HW		1	SOL	HW2	1	0.52
+4	MW		1	SOL	 MW	1      -1.04
+#endif
+#endif
+
+[ bonds ]
+; i     j       funct   length  force.c.
+;1      2       1       0.09347     562010  0.09347     562010
+;1      3       1       0.09347     562010  0.09347     562010
+1       2       3       0.09347     426.3676        25.6723
+1       3       3       0.09347     426.3676        25.6723
+2       3       1       0.1526	   103100  0.1526     103100
+
+[ angles ]
+; i     j       k       funct   r1e     r2e     krr             for cross_bond_bond funct = 3
+; i     j       k       funct   r1e     r2e     r3e     krt     for cross_bond_angle funct = 4
+2       1       3       3       0.09347  0.09347  53000
+2       1       3       4       0.09347  0.09347  0.1526 -81900
+
+[ exclusions ]
+1	2	3	4
+2	1	3	4
+3	1	2	4
+4	1	2	3
+
+; The position of the dummy is computed as follows:
+;
+;		O
+;  	      
+;	    	D
+;	  
+;	H		H
+;
+; const = distance (OD) / [ cos (angle(DOH)) 	* distance (OH) ]
+;	  0.015 nm	/ [ cos (52.26 deg)	* 0.09572 nm	]
+
+; Dummy pos x4 = x1 + a*(x2-x1) + b*(x3-x1)
+
+[ dummies3 ]
+; Dummy from			funct	a		b
+4	1	2	3	1	0.128012065	0.128012065

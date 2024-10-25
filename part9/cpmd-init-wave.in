@@ -1,0 +1,25 @@
+&INFO
+ $Id: cpmd-init-wave.in,v 1.1 2004/07/08 16:27:30 wwwadmin Exp $
+ Wavefunction optimization template
+ Tested with CPMD v3.9
+&END
+
+&CPMD
+  OPTIMIZE WAVEFUNCTION
+  PCG MINIMIZE
+  MEMORY BIG
+  CONVERGENCE ORBITALS
+    1.0e-6
+  SPLINE POINTS
+    1501
+&END
+
+
+&DFT
+  FUNCTIONAL BLYP
+  EXCHANGE CORRELATION TABLE NO
+  GC-CUTOFF
+    5.0e-6
+&END
+
+

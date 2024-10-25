@@ -1,0 +1,17 @@
+INTERFACE
+   SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+    CHARACTER(LEN=1), INTENT(IN)             :: TRANSA, TRANSB
+    INTEGER, INTENT(IN)                      :: M, N, K
+    INTEGER, PARAMETER                       :: DP = KIND(0.0D0), &
+                                                SP = KIND(0.0)
+    INTEGER, INTENT(IN)                      :: LDC
+    REAL(DP), INTENT(INOUT)                  :: C(LDC,*)
+    REAL(DP), INTENT(IN)                     :: BETA
+    INTEGER, INTENT(IN)                      :: LDB
+    REAL(DP), INTENT(IN)                     :: B(LDB,*)
+    INTEGER, INTENT(IN)                      :: LDA
+    REAL(DP), INTENT(IN)                     :: A(LDA,*), ALPHA
+
+   END SUBROUTINE DGEMM
+END INTERFACE
+
