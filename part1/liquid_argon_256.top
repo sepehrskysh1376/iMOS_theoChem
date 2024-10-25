@@ -1,0 +1,7 @@
+#include "argon.itp"
+
+[ system ]
+Ar 256
+
+[ molecules ]
+Ar       256

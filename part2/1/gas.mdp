@@ -1,0 +1,70 @@
+; Input file
+;
+; *********************************************************************************************************
+; PREPROCESSING 
+
+ title               =  Ar 256 NVE
+ define              =
+
+; *********************************************************************************************************
+; RUN CONTROL 
+
+ integrator          =  md
+ tinit               =  0         ; starting time for the run
+ dt                  =  0.002     ; in ps
+ nsteps              =  250000    ; number of steps
+ comm_mode           =  Linear    ; Remove CM translation ( Linear / Angular / None)
+ nstcomm             =  1         ; frequency of center of mass motion removal
+
+; *********************************************************************************************************
+;  OUTPUT CONTROL
+
+ nstxout             = 25    ; frequency to write coordinates to output trajectory file
+ nstvout             = 0    ; frequency to write velocities to output trajectory  file
+ nstfout             = 0    ; frequency to write forces to output trajectory
+ nstlog              = 1000   ; frequency to write energies to log file
+ nstcalcenergy       = 1    ;
+ nstenergy           = 25    ; frequency to write energies to energy file
+ nstxtcout           = 0    ; frequency to write coordinates to xtc trajectory
+; *********************************************************************************************************
+;  NEIGHBOR SEARCHING
+
+; cutoff-scheme       = group; pre 4.6 behavior
+ cutoff-scheme       = verlet; try newer scheme
+; nstlist             = 1    ; frequency to update the neighbor list
+ nstlist             = 10    ; frequency to update the neighbor list
+ ns_type             = grid ; (simple)
+ pbc                 = xyz  ; periodic boundary conditions, (no) = no pbc
+ verlet-buffer-tolerance  = 4.0e-5 ;
+ rlist               = 1.25  ; cut-off distance for the short-range neighbor list
+
+; *********************************************************************************************************
+; ELECTROSTATICS
+
+ coulombtype         = Cut-off          ; (Cut-off, Ewald, PME, PPPM, Reaction-Field ...)
+ fourierspacing      = 0.1         ; Maximum grid spacing for FFT grid when using PPPM or PME
+ pme_order           = 6           ; Interpolation order for PME, defaults to 4
+ rcoulomb            = 1.25         ; Distance for the Coulomb cut-off
+ epsilon_r           = 1           ; The relative dielectric constant. A value of 0 means infinity
+
+; ********************************************************************************************************
+; VDW
+ 
+ vdwtype             = Cut-off        ; (Cut-off, Shift, Switch ....)
+ vdw_modifier        = Force-switch
+ rvdw_switch         = 1.0
+ rvdw                = 1.25         ; distance for the LJ or Buckingham cut-off
+ DispCorr            = Ener
+
+; ********************************************************************************************************
+; TABLES
+
+ table-extension     = 3
+
+; ********************************************************************************************************
+; BONDS
+
+  constraints            = none ; (none, h-bonds, all-bonds, h-angles, all-angles)
+
+; ********************************************************************************************************
+

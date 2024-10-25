@@ -1,0 +1,50 @@
+; This tip4pions.itp file created by Maciek, last modification 06.04.2011
+
+; Uses noble gas - SPC/E water parameterization
+; I.C. Bourg, G. Sposito, Geochim. Cosmochim. Acta 72 (2008) 2237-2247.
+
+[ moleculetype ]
+; molname       nrexcl
+He               1
+
+[ atoms ]
+; id    at type  res nr  residu Name     at Name   cg nr   charge
+1        He       1       He              He        1       0
+
+
+[ moleculetype ]
+; molNeme       nrexcl
+Ne               1
+
+[ atoms ]
+; id    at type  res nr  residu Name     at Name   cg nr   charge
+1        Ne       1       Ne              Ne        1       0
+
+
+[ moleculetype ]
+; molNeme       nrexcl
+Ar                1
+
+[ atoms ]
+; id    at type  res nr  residu Name     at Name   cg nr   charge
+1        Ar        1       Ar               Ar         1       0
+
+
+[ moleculetype ]
+; molNeme       nrexcl
+Kr               1
+
+[ atoms ]
+; id    at type  res nr  residu Name     at Name   cg nr   charge
+1        Kr       1       Kr              Kr        1       0
+
+
+[ moleculetype ]
+; molNeme       nrexcl
+Xe               1
+
+[ atoms ]
+; id    at type  res nr  residu Name     at Name   cg nr   charge
+1        Xe       1       Xe              Xe        1       0
+
+
