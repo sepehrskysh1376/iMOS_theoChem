@@ -1,0 +1,628 @@
+
+  gmx solvate -cs -box 2 2 2 -o spcWater.gro
+
+Reading solvent configuration
+216H2O,WATJP01,SPC216,SPC-MODEL,300K,BOX(M)=1.86206NM,WFVG,MAR. 1984
+Containing 648 atoms in 216 residues
+
+Initialising inter-atomic distances...
+Generating solvent configuration
+Will generate new solvent configuration of 2x2x2 boxes
+Solvent box contains 1218 atoms in 406 residues
+Removed 555 solvent atoms due to solvent-solvent overlap
+Sorting configuration
+Found 1 molecule type:
+    SOL (   3 atoms):   221 residues
+Generated solvent containing 663 atoms in 221 residues
+Writing generated configuration to spcWater.gro
+
+Back Off! I just backed up spcWater.gro to ./#spcWater.gro.2#
+
+Output configuration contains 663 atoms in 221 residues
+Volume                 :           8 (nm^3)
+Density                :     826.409 (g/l)
+Number of SOL molecules:    221   
+
+
+  gmx grompp -f water-npt.mdp -c spcWater.gro -p spc.top -o spcNPT.tpr
+
+
+Back Off! I just backed up mdout.mdp to ./#mdout.mdp.2#
+
+NOTE 1 [file water-npt.mdp]:
+  The Berendsen thermostat does not generate the correct kinetic energy
+  distribution. You might want to consider using the V-rescale thermostat.
+
+Setting the LD random seed to -1251662055
+Generated 330891 of the 330891 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 330891 of the 330891 1-4 parameter combinations
+Excluding 2 bonded neighbours molecule type 'SOL'
+Velocities were taken from a Maxwell distribution at 300 K
+Removing all charge groups because cutoff-scheme=Verlet
+Analysing residue names:
+There are:   221      Water residues
+Number of degrees of freedom in T-Coupling group System is 1323.00
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 0.933 nm, buffer size 0.033 nm
+Set rlist, assuming 4x4 atom pair-list, to 0.900 nm, buffer size 0.000 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 20x20x20, spacing 0.100 0.100 0.100
+Estimate for the relative computational load of the PME mesh part: 0.37
+This run will generate roughly 19 Mb of data
+
+There was 1 note
+
+
+
+  gmx mdrun -v -deffnm spcNPT
+
+
+Running on 1 node with total 4 cores, 8 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+  Hardware topology: Full, with devices
+
+Reading file spcNPT.tpr, VERSION 2016.4 (single precision)
+Changing nstlist from 10 to 20, rlist from 0.9 to 0.927
+
+Using 1 MPI thread
+Using 8 OpenMP threads 
+
+starting mdrun 'Pure Water - SPC'
+50000 steps,    100.0 ps.
+step 0
+Step 1  Warning: pressure scaling more than 1%, mu: 1.03189 1.03189 1.03189
+step 49900, remaining wall clock time:     0 s          
+Writing final coordinates.
+step 50000, remaining wall clock time:     0 s          
+               Core t (s)   Wall t (s)        (%)
+       Time:      174.245       21.781      800.0
+                 (ns/day)    (hour/ns)
+Performance:      396.692        0.061
+
+
+  gmx energy -s spcNPT.tpr -f spcNPT.edr -o box.xvg
+
+Opened spcNPT.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Temperature   
+  9  Pres.-DC        10  Pressure        11  Box-X           12  Box-Y         
+ 13  Box-Z           14  Volume          15  Density         16  pV            
+ 17  Enthalpy        18  Vir-XX          19  Vir-XY          20  Vir-XZ        
+ 21  Vir-YX          22  Vir-YY          23  Vir-YZ          24  Vir-ZX        
+ 25  Vir-ZY          26  Vir-ZZ          27  Pres-XX         28  Pres-XY       
+ 29  Pres-XZ         30  Pres-YX         31  Pres-YY         32  Pres-YZ       
+ 33  Pres-ZX         34  Pres-ZY         35  Pres-ZZ         36  #Surf*SurfTen 
+ 37  T-System        38  Lamb-System   
+
+11
+12
+13
+
+Last energy frame read 5000 time  100.000         
+
+Statistics over 50001 steps [ 0.0000 through 100.0000 ps ], 3 data sets
+All statistics are over 50001 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Box-X                       1.89646     0.0059  0.0280196 -0.0340694  (nm)
+Box-Y                       1.89646     0.0059  0.0280196 -0.0340694  (nm)
+Box-Z                       1.89646     0.0059  0.0280196 -0.0340694  (nm)
+
+
+  gmx energy -s spcNPT.tpr -f spcNPT.edr -o box_new.xvg -b 5.02
+
+Opened spcNPT.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Temperature   
+  9  Pres.-DC        10  Pressure        11  Box-X           12  Box-Y         
+ 13  Box-Z           14  Volume          15  Density         16  pV            
+ 17  Enthalpy        18  Vir-XX          19  Vir-XY          20  Vir-XZ        
+ 21  Vir-YX          22  Vir-YY          23  Vir-YZ          24  Vir-ZX        
+ 25  Vir-ZY          26  Vir-ZZ          27  Pres-XX         28  Pres-XY       
+ 29  Pres-XZ         30  Pres-YX         31  Pres-YY         32  Pres-YZ       
+ 33  Pres-ZX         34  Pres-ZY         35  Pres-ZZ         36  #Surf*SurfTen 
+ 37  T-System        38  Lamb-System   
+
+11 12 13
+
+
+Back Off! I just backed up box_new.xvg to ./#box_new.xvg.1#
+Last energy frame read 5000 time  100.000         
+
+Statistics over 47491 steps [ 5.0200 through 100.0000 ps ], 3 data sets
+All statistics are over 47491 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Box-X                       1.89101    0.00077 0.00706883 -0.00276806  (nm)
+Box-Y                       1.89101    0.00077 0.00706883 -0.00276806  (nm)
+Box-Z                       1.89101    0.00077 0.00706883 -0.00276806  (nm)
+
+
+  gmx grompp -f water-nvt.mdp -c spcNVT_beginning.gro -p spc.top -o spcNVT.tpr
+
+
+Back Off! I just backed up mdout.mdp to ./#mdout.mdp.3#
+
+NOTE 1 [file water-nvt.mdp]:
+  The Berendsen thermostat does not generate the correct kinetic energy
+  distribution. You might want to consider using the V-rescale thermostat.
+
+Setting the LD random seed to -1719103664
+Generated 330891 of the 330891 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 330891 of the 330891 1-4 parameter combinations
+Excluding 2 bonded neighbours molecule type 'SOL'
+Removing all charge groups because cutoff-scheme=Verlet
+Analysing residue names:
+There are:   221      Water residues
+Number of degrees of freedom in T-Coupling group System is 1323.00
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 0.936 nm, buffer size 0.036 nm
+Set rlist, assuming 4x4 atom pair-list, to 0.900 nm, buffer size 0.000 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 16x16x16, spacing 0.118 0.118 0.118
+Estimate for the relative computational load of the PME mesh part: 0.29
+This run will generate roughly 19 Mb of data
+
+There was 1 note
+
+
+  gmx mdrun -v -deffnm spcNVT
+
+
+Running on 1 node with total 4 cores, 8 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+  Hardware topology: Full, with devices
+
+Reading file spcNVT.tpr, VERSION 2016.4 (single precision)
+Changing nstlist from 10 to 20, rlist from 0.9 to 0.932
+
+Using 1 MPI thread
+Using 8 OpenMP threads 
+
+starting mdrun 'Pure Water - SPC'
+50000 steps,    100.0 ps.
+step 49900, remaining wall clock time:     0 s          
+Writing final coordinates.
+step 50000, remaining wall clock time:     0 s          
+               Core t (s)   Wall t (s)        (%)
+       Time:      114.730       14.341      800.0
+                 (ns/day)    (hour/ns)
+Performance:      602.470        0.040
+
+
+  gmx energy -s spcNVT.tpr -f spcNVT.edr -o propCheck.xvg
+
+Opened spcNVT.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Temperature   
+  9  Pres.-DC        10  Pressure        11  Vir-XX          12  Vir-XY        
+ 13  Vir-XZ          14  Vir-YX          15  Vir-YY          16  Vir-YZ        
+ 17  Vir-ZX          18  Vir-ZY          19  Vir-ZZ          20  Pres-XX       
+ 21  Pres-XY         22  Pres-XZ         23  Pres-YX         24  Pres-YY       
+ 25  Pres-YZ         26  Pres-ZX         27  Pres-ZY         28  Pres-ZZ       
+ 29  #Surf*SurfTen   30  T-System        31  Lamb-System   
+
+7
+10
+8
+5
+6
+
+Last energy frame read 5000 time  100.000         
+
+Statistics over 50001 steps [ 0.0000 through 100.0000 ps ], 5 data sets
+All statistics are over 50001 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Potential                  -9210.19        8.3    69.4949   -35.9078  (kJ/mol)
+Kinetic En.                 1650.54       0.43    46.5688  -0.530898  (kJ/mol)
+Total Energy               -7559.65        8.5    53.0719   -36.4388  (kJ/mol)
+Temperature                 300.097      0.078    8.46703 -0.0965259  (K)
+Pressure                   -15.8393         25    752.235   -52.6638  (bar)
+
+
+
+  gmx grompp -f water-nve.mdp -c spcNVE_beginning.gro -p spc.top -o spcNVE.tpr -time 100 -t spcNVT.trr
+
+
+Back Off! I just backed up mdout.mdp to ./#mdout.mdp.4#
+
+NOTE 1 [file water-nve.mdp]:
+  With Verlet lists the optimal nstlist is >= 10, with GPUs >= 20. Note
+  that with the Verlet scheme, nstlist has no effect on the accuracy of
+  your simulation.
+
+Setting the LD random seed to -1368486058
+Generated 330891 of the 330891 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 330891 of the 330891 1-4 parameter combinations
+Excluding 2 bonded neighbours molecule type 'SOL'
+Removing all charge groups because cutoff-scheme=Verlet
+Analysing residue names:
+There are:   221      Water residues
+Number of degrees of freedom in T-Coupling group System is 1323.00
+
+NOTE 2 [file water-nve.mdp]:
+  NVE simulation: will use the initial temperature of 304.492 K for
+  determining the Verlet buffer size
+
+
+NOTE 3 [file water-nve.mdp]:
+  You are using a Verlet buffer tolerance of 0.005 kJ/mol/ps for an NVE
+  simulation of length 100 ps, which can give a final drift of 10%. For
+  conserving energy to 1% when using constraints, you might need to set
+  verlet-buffer-tolerance to 5.1e-04.
+
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 304.492 K
+Calculated rlist for 1x1 atom pair-list as 0.909 nm, buffer size 0.009 nm
+Set rlist, assuming 4x4 atom pair-list, to 0.900 nm, buffer size 0.000 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Reading Coordinates, Velocities and Box size from old trajectory
+Will read till time 100
+trr version: GMX_trn_file (single precision)
+Reading frame      10 time  100.000   Using frame at t = 100 ps
+Starting time for run is 0 ps
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 16x16x16, spacing 0.118 0.118 0.118
+Estimate for the relative computational load of the PME mesh part: 0.29
+This run will generate roughly 778 Mb of data
+
+There were 3 notes
+
+
+  gmx mdrun -v -deffnm spcNVE
+
+
+Running on 1 node with total 4 cores, 8 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+  Hardware topology: Full, with devices
+
+Reading file spcNVE.tpr, VERSION 2016.4 (single precision)
+Can not increase nstlist because an NVE ensemble is used
+Using 1 MPI thread
+Using 8 OpenMP threads 
+
+starting mdrun 'Pure Water - SPC'
+50000 steps,    100.0 ps.
+step 49900, remaining wall clock time:     0 s          
+Writing final coordinates.
+step 50000, remaining wall clock time:     0 s          
+               Core t (s)   Wall t (s)        (%)
+       Time:      384.054       48.007      800.0
+                 (ns/day)    (hour/ns)
+Performance:      179.978        0.133
+
+
+
+
+
+
+  gmx make_ndx -f spcNVT.tpr -o spcNVT.ndx
+
+
+Reading structure file
+Reading file spcNVT.tpr, VERSION 2016.4 (single precision)
+Reading file spcNVT.tpr, VERSION 2016.4 (single precision)
+Going to read 0 old index file(s)
+Analysing residue names:
+There are:   221      Water residues
+
+  0 System              :   663 atoms
+  1 Water               :   663 atoms
+  2 SOL                 :   663 atoms
+
+ nr : group      '!': not  'name' nr name   'splitch' nr    Enter: list groups
+ 'a': atom       '&': and  'del' nr         'splitres' nr   'l': list residues
+ 't': atom type  '|': or   'keep' nr        'splitat' nr    'h': help
+ 'r': residue              'res' nr         'chain' char
+ "name": group             'case': case sensitive           'q': save and quit
+ 'ri': residue index
+
+> r SOL & a OW
+
+Found 663 atoms with residue name SOL
+Found 221 atoms with name OW
+Merged two groups with AND: 663 221 -> 221
+
+  3 SOL_&_OW            :   221 atoms
+
+> name 3 Oxygen
+
+
+> a HW1 | a HW2 & r SOL
+
+Found 221 atoms with name HW1
+Found 221 atoms with name HW2
+Merged two groups with OR: 221 221 -> 442
+Found 663 atoms with residue name SOL
+Merged two groups with AND: 442 663 -> 442
+
+  4 HW1_HW2_&_SOL       :   442 atoms
+
+> name 4 Hydrogen
+
+
+> q
+
+
+
+
+
+
+
+
+  gmx make_ndx -f spcNVE.tpr -o spcNVE.ndx
+
+
+Reading structure file
+Reading file spcNVE.tpr, VERSION 2016.4 (single precision)
+Reading file spcNVE.tpr, VERSION 2016.4 (single precision)
+Going to read 0 old index file(s)
+Analysing residue names:
+There are:   221      Water residues
+
+  0 System              :   663 atoms
+  1 Water               :   663 atoms
+  2 SOL                 :   663 atoms
+
+ nr : group      '!': not  'name' nr name   'splitch' nr    Enter: list groups
+ 'a': atom       '&': and  'del' nr         'splitres' nr   'l': list residues
+ 't': atom type  '|': or   'keep' nr        'splitat' nr    'h': help
+ 'r': residue              'res' nr         'chain' char
+ "name": group             'case': case sensitive           'q': save and quit
+ 'ri': residue index
+
+> r SOL & a OW
+
+Found 663 atoms with residue name SOL
+Found 221 atoms with name OW
+Merged two groups with AND: 663 221 -> 221
+
+  3 SOL_&_OW            :   221 atoms
+
+> name 3 Oxygen
+
+
+> r SOL & a HW1 | a HW2
+
+Found 663 atoms with residue name SOL
+Found 221 atoms with name HW1
+Merged two groups with AND: 663 221 -> 221
+Found 221 atoms with name HW2
+Merged two groups with OR: 221 221 -> 442
+
+  4 SOL_&_HW1_HW2       :   442 atoms
+
+> a HW1 | a HW2 & r SOL
+
+Found 221 atoms with name HW1
+Found 221 atoms with name HW2
+Merged two groups with OR: 221 221 -> 442
+Found 663 atoms with residue name SOL
+Merged two groups with AND: 442 663 -> 442
+
+  5 HW1_HW2_&_SOL       :   442 atoms
+
+> name 5 Hydrogen
+
+
+> q
+
+
+
+  gmx rdf -f spcNVE.trr -s spcNVE.gro -n spcNVE.ndx -o radNVE_HH.xvg
+
+Available static index groups:
+ Group  0 "System" (663 atoms)
+ Group  1 "Water" (663 atoms)
+ Group  2 "SOL" (663 atoms)
+ Group  3 "Oxygen" (221 atoms)
+ Group  4 "SOL_&_HW1_HW2" (442 atoms)
+ Group  5 "Hydrogen" (442 atoms)
+Specify a selection for option 'ref'
+(Reference selection for RDF computation):
+(one per line, <enter> for status/groups, 'help' for help)
+> 5
+Selection '5' parsed
+Available static index groups:
+ Group  0 "System" (663 atoms)
+ Group  1 "Water" (663 atoms)
+ Group  2 "SOL" (663 atoms)
+ Group  3 "Oxygen" (221 atoms)
+ Group  4 "SOL_&_HW1_HW2" (442 atoms)
+ Group  5 "Hydrogen" (442 atoms)
+Specify any number of selections for option 'sel'
+(Selections to compute RDFs for from the reference):
+(one per line, <enter> for status/groups, 'help' for help, Ctrl-D to end)
+> 5
+Selection '5' parsed
+> 
+Available static index groups:
+ Group  0 "System" (663 atoms)
+ Group  1 "Water" (663 atoms)
+ Group  2 "SOL" (663 atoms)
+ Group  3 "Oxygen" (221 atoms)
+ Group  4 "SOL_&_HW1_HW2" (442 atoms)
+ Group  5 "Hydrogen" (442 atoms)
+Specify any number of selections for option 'sel'
+(Selections to compute RDFs for from the reference):
+(one per line, <enter> for status/groups, 'help' for help, Ctrl-D to end)
+Currently provided selections:
+  1. 5
+> 5
+Selection '5' parsed
+> 
+Available static index groups:
+ Group  0 "System" (663 atoms)
+ Group  1 "Water" (663 atoms)
+ Group  2 "SOL" (663 atoms)
+ Group  3 "Oxygen" (221 atoms)
+ Group  4 "SOL_&_HW1_HW2" (442 atoms)
+ Group  5 "Hydrogen" (442 atoms)
+Specify any number of selections for option 'sel'
+(Selections to compute RDFs for from the reference):
+(one per line, <enter> for status/groups, 'help' for help, Ctrl-D to end)
+Currently provided selections:
+  1. 5
+  2. 5
+> 
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+trr version: GMX_trn_file (single precision)
+Reading frame       0 time    0.000   
+WARNING: If there are molecules in the input trajectory file
+         that are broken across periodic boundaries, they
+         cannot be made whole (or treated as whole) without
+         you providing a run input file.
+
+Last frame      50000 time  100.000   
+Analyzed 50001 frames, last time 100.000
+
+
+
+  gmx msd -f spcNVE.trr -s spcNVE.gro -n spcNVE.ndx -o msdNVE_Oxygen.xvg
+
+
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+
+Select a group to calculate mean squared displacement for:
+Group     0 (         System) has   663 elements
+Group     1 (          Water) has   663 elements
+Group     2 (            SOL) has   663 elements
+Group     3 (         Oxygen) has   221 elements
+Group     4 (  SOL_&_HW1_HW2) has   442 elements
+Group     5 (       Hydrogen) has   442 elements
+Select a group: 3
+Selected 3: 'Oxygen'
+trr version: GMX_trn_file (single precision)
+Last frame      50000 time  100.000   
+
+Used 11 restart points spaced 10 ps over 100 ps
+
+Fitting from 10 to 90 ps
+
+D[    Oxygen] 4.4268 (+/- 0.0035) 1e-5 cm^2/s
+
+
+
+
+
+
+  gmx msd -f spcNVE.trr -s spcNVE.gro -n spcNVE.ndx -o msdNVE_Hydrogen.xvg
+
+
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+
+Select a group to calculate mean squared displacement for:
+Group     0 (         System) has   663 elements
+Group     1 (          Water) has   663 elements
+Group     2 (            SOL) has   663 elements
+Group     3 (         Oxygen) has   221 elements
+Group     4 (  SOL_&_HW1_HW2) has   442 elements
+Group     5 (       Hydrogen) has   442 elements
+Select a group: 5
+Selected 5: 'Hydrogen'
+trr version: GMX_trn_file (single precision)
+Last frame      50000 time  100.000   
+
+Used 11 restart points spaced 10 ps over 100 ps
+
+Fitting from 10 to 90 ps
+
+D[  Hydrogen] 4.4249 (+/- 0.0281) 1e-5 cm^2/s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
