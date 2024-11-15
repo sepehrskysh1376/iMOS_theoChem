@@ -1,0 +1,1349 @@
+[spanahi@imospc17 Desktop]$ cd
+[spanahi@imospc17 ~]$ ls
+Desktop    Downloads  perl5     Public     Videos
+Documents  Music      Pictures  Templates
+[spanahi@imospc17 ~]$ cd Documents/
+[spanahi@imospc17 Documents]$ ls
+bin                        include               part1   part6  test2017
+build                      known_hosts           part10  part7  test2021
+cpmd.in                    known_hosts.old       part2   part9  test3
+data3                      lib                   part3   share  test4
+etc                        liquid_argon_256.mdp  part4   test   test5
+gromacs_manual-2016.4.pdf  OLD                   part5   test2
+[spanahi@imospc17 Documents]$ ls
+bin                        include               part1   part6  test2017
+build                      known_hosts           part10  part7  test2021
+cpmd.in                    known_hosts.old       part2   part9  test3
+data3                      lib                   part3   share  test4
+etc                        liquid_argon_256.mdp  part4   test   test5
+gromacs_manual-2016.4.pdf  OLD                   part5   test2
+[spanahi@imospc17 Documents]$ cd part4/
+[spanahi@imospc17 part4]$ ls
+TIP4P-Fls.itp
+[spanahi@imospc17 part4]$ cd ..
+[spanahi@imospc17 Documents]$ ls
+bin                        include               part1   part6  test2017
+build                      known_hosts           part10  part7  test2021
+cpmd.in                    known_hosts.old       part2   part9  test3
+data3                      lib                   part3   share  test4
+etc                        liquid_argon_256.mdp  part4   test   test5
+gromacs_manual-2016.4.pdf  OLD                   part5   test2
+[spanahi@imospc17 Documents]$ cd part3
+[spanahi@imospc17 part3]$ ls
+spc  spc.log  tip4p
+[spanahi@imospc17 part3]$ cd spc/
+[spanahi@imospc17 spc]$ ls
+box_new.xvg          radNVT.xvg            spcNVT.edr
+#box_new.xvg.1#      spc.log               spcNVT.gro
+box.xvg              spcNPT.cpt            spcNVT.log
+DEADJOE              spcNPT.edr            spcNVT.ndx
+energy.xvg           spcNPT.gro            spcNVT.tpr
+mdout.mdp            spcNPT.log            spcNVT.trr
+#mdout.mdp.1#        spcNPT.tpr            spc.top
+#mdout.mdp.2#        spcNPT.trr            spcWater.gro
+#mdout.mdp.3#        spcNVE_beginning.gro  #spcWater.gro.1#
+#mdout.mdp.4#        spcNVE.cpt            #spcWater.gro.2#
+msdNVE_Hydrogen.xvg  spcNVE.edr            tip4pflex.gro
+msdNVE_Oxygen.xvg    spcNVE.gro            TIP4P-Fls.itp
+msdNVE.xvg           spcNVE.log            vanhoveNVE_Oxygen_om.xpm
+propCheck_NVE.xvg    spcNVE.ndx            vanhoveNVE_Oxygen_or.xvg
+propCheck.xvg        spcNVE.tpr            vanhoveNVE_Oxygen_ot.xvg
+radNVE_HH.xvg        spcNVE.trr            water-npt.mdp
+radNVE_OH.xvg        spcNVT_beginning.gro  water-nve.mdp
+radNVE_OO.xvg        spcNVT.cpt            water-nvt.mdp
+[spanahi@imospc17 spc]$ cp *.mdp ../
+spc/     spc.log  tip4p/   
+[spanahi@imospc17 spc]$ cp *.mdp ../
+spc/     spc.log  tip4p/   
+[spanahi@imospc17 spc]$ cp *.mdp ../../
+bin/                       part2/
+build/                     part3/
+cpmd.in                    part4/
+data3/                     part5/
+etc/                       part6/
+.git/                      part7/
+gromacs_manual-2016.4.pdf  part9/
+include/                   share/
+known_hosts                test/
+known_hosts.old            test2/
+lib/                       test2017/
+liquid_argon_256.mdp       test2021/
+OLD/                       test3/
+part1/                     test4/
+part10/                    test5/
+[spanahi@imospc17 spc]$ cp *.mdp ../../part4
+[spanahi@imospc17 spc]$ cd ..
+[spanahi@imospc17 part3]$ ls
+spc  spc.log  tip4p
+[spanahi@imospc17 part3]$ cd ..
+[spanahi@imospc17 Documents]$ ls
+bin                        include               part1   part6  test2017
+build                      known_hosts           part10  part7  test2021
+cpmd.in                    known_hosts.old       part2   part9  test3
+data3                      lib                   part3   share  test4
+etc                        liquid_argon_256.mdp  part4   test   test5
+gromacs_manual-2016.4.pdf  OLD                   part5   test2
+[spanahi@imospc17 Documents]$ ls
+bin                        include               part1   part6  test2017
+build                      known_hosts           part10  part7  test2021
+cpmd.in                    known_hosts.old       part2   part9  test3
+data3                      lib                   part3   share  test4
+etc                        liquid_argon_256.mdp  part4   test   test5
+gromacs_manual-2016.4.pdf  OLD                   part5   test2
+[spanahi@imospc17 Documents]$ cd part4/
+[spanahi@imospc17 part4]$ ls
+mdout.mdp  TIP4P-Fls.itp  water-npt.mdp  water-nve.mdp  water-nvt.mdp
+[spanahi@imospc17 part4]$ gmx solvate -cs tip4p -box 2 2 2 -o tip4pWater.gro
+                     :-) GROMACS - gmx solvate, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx solvate, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx solvate -cs tip4p -box 2 2 2 -o tip4pWater.gro
+
+Reading solvent configuration
+216 TIP4P Water Molecules Equilibrated for 20 ps at 300 K
+Containing 864 atoms in 216 residues
+
+Initialising inter-atomic distances...
+
+WARNING: Masses and atomic (Van der Waals) radii will be guessed
+         based on residue and atom names, since they could not be
+         definitively assigned from the information in your input
+         files. These guessed numbers might deviate from the mass
+         and radius of the atom type. Please check the output
+         files if necessary.
+
+NOTE: From version 5.0 gmx solvate uses the Van der Waals radii
+from the source below. This means the results may be different
+compared to previous GROMACS versions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+A. Bondi
+van der Waals Volumes and Radii
+J. Phys. Chem. 68 (1964) pp. 441-451
+-------- -------- --- Thank You --- -------- --------
+
+Generating solvent configuration
+Will generate new solvent configuration of 2x2x2 boxes
+Solvent box contains 1620 atoms in 405 residues
+Removed 736 solvent atoms due to solvent-solvent overlap
+Sorting configuration
+Found 1 molecule type:
+    SOL (   4 atoms):   221 residues
+Generated solvent containing 884 atoms in 221 residues
+Writing generated configuration to tip4pWater.gro
+
+Output configuration contains 884 atoms in 221 residues
+Volume                 :           8 (nm^3)
+Density                :     826.409 (g/l)
+Number of SOL molecules:    221   
+
+
+GROMACS reminds you: "In the End Science Comes Down to Praying" (P. v.d. Berg)
+
+[spanahi@imospc17 part4]$ gmx solvate -cs tip4p -box 2 2 2 -o tip4pWater.gro &> sim.log
+[spanahi@imospc17 part4]$ ls
+mdout.mdp  TIP4P-Fls.itp   #tip4pWater.gro.1#  water-nve.mdp
+sim.log    tip4pWater.gro  water-npt.mdp       water-nvt.mdp
+[spanahi@imospc17 part4]$ vim sim.log 
+[spanahi@imospc17 part4]$ gmx solvate -cs tip4p -box 2 2 2 -o tip4pWater.gro &> sim.log
+[spanahi@imospc17 part4]$ vim sim.log 
+[spanahi@imospc17 part4]$ vim water.top
+[spanahi@imospc17 part4]$ ls
+mdout.mdp  TIP4P-Fls.itp   #tip4pWater.gro.1#  water-npt.mdp  water-nvt.mdp
+sim.log    tip4pWater.gro  #tip4pWater.gro.2#  water-nve.mdp  water.top
+[spanahi@imospc17 part4]$ ls
+mdout.mdp  TIP4P-Fls.itp   #tip4pWater.gro.1#  water-npt.mdp  water-nvt.mdp
+sim.log    tip4pWater.gro  #tip4pWater.gro.2#  water-nve.mdp  water.top
+[spanahi@imospc17 part4]$ ll
+total 156
+-rw-r--r-- 1 spanahi tckurs 11901 Nov 15 12:54 mdout.mdp
+-rw-r--r-- 1 spanahi tckurs  3165 Nov 15 12:57 sim.log
+-rw-r--r-- 1 spanahi tckurs  2875 Oct 25 14:55 TIP4P-Fls.itp
+-rw-r--r-- 1 spanahi tckurs 39842 Nov 15 12:57 tip4pWater.gro
+-rw-r--r-- 1 spanahi tckurs 39842 Nov 15 12:56 #tip4pWater.gro.1#
+-rw-r--r-- 1 spanahi tckurs 39842 Nov 15 12:57 #tip4pWater.gro.2#
+-rw-r--r-- 1 spanahi tckurs  3746 Nov 15 12:54 water-npt.mdp
+-rw-r--r-- 1 spanahi tckurs  3744 Nov 15 12:54 water-nve.mdp
+-rw-r--r-- 1 spanahi tckurs  3749 Nov 15 12:54 water-nvt.mdp
+-rw-r--r-- 1 spanahi tckurs   123 Nov 15 13:00 water.top
+[spanahi@imospc17 part4]$ ls
+mdout.mdp  TIP4P-Fls.itp   #tip4pWater.gro.1#  water-npt.mdp  water-nvt.mdp
+sim.log    tip4pWater.gro  #tip4pWater.gro.2#  water-nve.mdp  water.top
+[spanahi@imospc17 part4]$ vim water-npt.mdp 
+[spanahi@imospc17 part4]$ gmx grompp -f water-npt.mdp -c tip4pWater.gro -p water.top -o water_npt.tpr
+                      :-) GROMACS - gmx grompp, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx grompp -f water-npt.mdp -c tip4pWater.gro -p water.top -o water_npt.tpr
+
+
+Back Off! I just backed up mdout.mdp to ./#mdout.mdp.1#
+
+NOTE 1 [file water-npt.mdp]:
+  The Berendsen thermostat does not generate the correct kinetic energy
+  distribution. You might want to consider using the V-rescale thermostat.
+
+Setting the LD random seed to -1554169019
+Generated 330891 of the 330891 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 330891 of the 330891 1-4 parameter combinations
+Excluding 2 bonded neighbours molecule type 'SOL'
+Velocities were taken from a Maxwell distribution at 300 K
+Cleaning up constraints and constant bonded interactions with virtual sites
+Removing all charge groups because cutoff-scheme=Verlet
+Analysing residue names:
+There are:   221      Water residues
+Number of degrees of freedom in T-Coupling group System is 1323.00
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 0.936 nm, buffer size 0.036 nm
+Set rlist, assuming 4x4 atom pair-list, to 0.900 nm, buffer size 0.000 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 20x20x20, spacing 0.100 0.100 0.100
+Estimate for the relative computational load of the PME mesh part: 0.29
+This run will generate roughly 19 Mb of data
+
+There was 1 note
+
+GROMACS reminds you: "I do not believe continuum electrostatics" (Arieh Warshel, Nobel lecture 2013)
+
+[spanahi@imospc17 part4]$ gmx mdrun -v -deffnm water_npt
+                      :-) GROMACS - gmx mdrun, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx mdrun -v -deffnm water_npt
+
+
+Running on 1 node with total 4 cores, 8 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+  Hardware topology: Full, with devices
+
+Reading file water_npt.tpr, VERSION 2016.4 (single precision)
+Changing nstlist from 10 to 20, rlist from 0.9 to 0.932
+
+Using 1 MPI thread
+Using 8 OpenMP threads 
+
+starting mdrun 'Pure Water TIP4P'
+50000 steps,    100.0 ps.
+step 0
+Step 1  Warning: pressure scaling more than 1%, mu: 1.03045 1.03045 1.03045
+step 49900, remaining wall clock time:     0 s          
+Writing final coordinates.
+step 50000, remaining wall clock time:     0 s          
+               Core t (s)   Wall t (s)        (%)
+       Time:      124.548       15.569      800.0
+                 (ns/day)    (hour/ns)
+Performance:      554.976        0.043
+
+GROMACS reminds you: "Alas, You're Welcome" (Prof. Dumbledore in Potter Puppet Pals)
+
+[spanahi@imospc17 part4]$ ll
+total 4908
+-rw-r--r-- 1 spanahi tckurs   11891 Nov 15 13:02 mdout.mdp
+-rw-r--r-- 1 spanahi tckurs   11901 Nov 15 12:54 #mdout.mdp.1#
+-rw-r--r-- 1 spanahi tckurs    3165 Nov 15 12:57 sim.log
+-rw-r--r-- 1 spanahi tckurs    2875 Oct 25 14:55 TIP4P-Fls.itp
+-rw-r--r-- 1 spanahi tckurs   39842 Nov 15 12:57 tip4pWater.gro
+-rw-r--r-- 1 spanahi tckurs   39842 Nov 15 12:56 #tip4pWater.gro.1#
+-rw-r--r-- 1 spanahi tckurs   39842 Nov 15 12:57 #tip4pWater.gro.2#
+-rw-r--r-- 1 spanahi tckurs   23172 Nov 15 13:03 water_npt.cpt
+-rw-r--r-- 1 spanahi tckurs 2641112 Nov 15 13:03 water_npt.edr
+-rw-r--r-- 1 spanahi tckurs   61050 Nov 15 13:03 water_npt.gro
+-rw-r--r-- 1 spanahi tckurs 1964885 Nov 15 13:03 water_npt.log
+-rw-r--r-- 1 spanahi tckurs    3746 Nov 15 13:01 water-npt.mdp
+-rw-r--r-- 1 spanahi tckurs   37828 Nov 15 13:02 water_npt.tpr
+-rw-r--r-- 1 spanahi tckurs  118008 Nov 15 13:03 water_npt.trr
+-rw-r--r-- 1 spanahi tckurs    3744 Nov 15 12:54 water-nve.mdp
+-rw-r--r-- 1 spanahi tckurs    3749 Nov 15 12:54 water-nvt.mdp
+-rw-r--r-- 1 spanahi tckurs     123 Nov 15 13:00 water.top
+[spanahi@imospc17 part4]$ ls
+mdout.mdp      tip4pWater.gro      water_npt.edr  water_npt.tpr  water.top
+#mdout.mdp.1#  #tip4pWater.gro.1#  water_npt.gro  water_npt.trr
+sim.log        #tip4pWater.gro.2#  water_npt.log  water-nve.mdp
+TIP4P-Fls.itp  water_npt.cpt       water-npt.mdp  water-nvt.mdp
+[spanahi@imospc17 part4]$ cp ../../Downloads/mulnvtprog .
+[spanahi@imospc17 part4]$ ls
+mdout.mdp      TIP4P-Fls.itp       water_npt.cpt  water-npt.mdp  water-nvt.mdp
+#mdout.mdp.1#  tip4pWater.gro      water_npt.edr  water_npt.tpr  water.top
+mulnvtprog     #tip4pWater.gro.1#  water_npt.gro  water_npt.trr
+sim.log        #tip4pWater.gro.2#  water_npt.log  water-nve.mdp
+[spanahi@imospc17 part4]$ gmx energy -f 
+mdout.mdp           #tip4pWater.gro.1#  water-npt.mdp
+#mdout.mdp.1#       #tip4pWater.gro.2#  water_npt.tpr
+mulnvtprog          water_npt.cpt       water_npt.trr
+sim.log             water_npt.edr       water-nve.mdp
+TIP4P-Fls.itp       water_npt.gro       water-nvt.mdp
+tip4pWater.gro      water_npt.log       water.top
+[spanahi@imospc17 part4]$ gmx energy -f water_npt.edr -o boxsize.xvg -b 90
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -f water_npt.edr -o boxsize.xvg -b 90
+
+Opened water_npt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Temperature   
+  9  Pres.-DC        10  Pressure        11  Box-X           12  Box-Y         
+ 13  Box-Z           14  Volume          15  Density         16  pV            
+ 17  Enthalpy        18  Vir-XX          19  Vir-XY          20  Vir-XZ        
+ 21  Vir-YX          22  Vir-YY          23  Vir-YZ          24  Vir-ZX        
+ 25  Vir-ZY          26  Vir-ZZ          27  Pres-XX         28  Pres-XY       
+ 29  Pres-XZ         30  Pres-YX         31  Pres-YY         32  Pres-YZ       
+ 33  Pres-ZX         34  Pres-ZY         35  Pres-ZZ         36  #Surf*SurfTen 
+ 37  T-System        38  Lamb-System   
+
+11
+12
+13
+
+Last energy frame read 5000 time  100.000         
+
+Statistics over 5001 steps [ 90.0000 through 100.0000 ps ], 3 data sets
+All statistics are over 5001 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Box-X                       1.87744     0.0013 0.00403277 -0.00700931  (nm)
+Box-Y                       1.87744     0.0013 0.00403277 -0.00700931  (nm)
+Box-Z                       1.87744     0.0013 0.00403277 -0.00700931  (nm)
+
+GROMACS reminds you: "BioBeat is Not Available In Regular Shops" (P.J. Meulenhoff)
+
+[spanahi@imospc17 part4]$ vim boxsize.xvg 
+[spanahi@imospc17 part4]$ ls
+boxsize.xvg    TIP4P-Fls.itp       water_npt.edr  water_npt.trr
+mdout.mdp      tip4pWater.gro      water_npt.gro  water-nve.mdp
+#mdout.mdp.1#  #tip4pWater.gro.1#  water_npt.log  water-nvt.mdp
+mulnvtprog     #tip4pWater.gro.2#  water-npt.mdp  water.top
+sim.log        water_npt.cpt       water_npt.tpr
+[spanahi@imospc17 part4]$ vim water-nvt.mdp 
+[spanahi@imospc17 part4]$ vim water-nvt.mdp 
+[spanahi@imospc17 part4]$ gmx grompp -f water-nvt.mdp -c 
+boxsize.xvg         #tip4pWater.gro.1#  water_npt.tpr
+mdout.mdp           #tip4pWater.gro.2#  water_npt.trr
+#mdout.mdp.1#       water_npt.cpt       water-nve.mdp
+mulnvtprog          water_npt.edr       water-nvt.mdp
+sim.log             water_npt.gro       water.top
+TIP4P-Fls.itp       water_npt.log       
+tip4pWater.gro      water-npt.mdp       
+[spanahi@imospc17 part4]$ gmx grompp -f water-nvt.mdp -c water_npt.gro -o water_nvt.tpr
+                      :-) GROMACS - gmx grompp, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx grompp -f water-nvt.mdp -c water_npt.gro -o water_nvt.tpr
+
+
+-------------------------------------------------------
+Program:     gmx grompp, version 2016.4
+Source file: src/gromacs/options/options.cpp (line 258)
+Function:    void gmx::Options::finish()
+
+Error in user input:
+Invalid input values
+  In option p
+    Required option was not provided, and the default file 'topol' does not
+    exist or is not accessible.
+    The following extensions were tried to complete the file name:
+      .top
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+[spanahi@imospc17 part4]$ gmx grompp -f water-nvt.mdp -c water_npt.gro -p water.top -o water_nvt.tpr
+                      :-) GROMACS - gmx grompp, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx grompp, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx grompp -f water-nvt.mdp -c water_npt.gro -p water.top -o water_nvt.tpr
+
+
+Back Off! I just backed up mdout.mdp to ./#mdout.mdp.2#
+
+NOTE 1 [file water-nvt.mdp]:
+  leapfrog does not yet support Nose-Hoover chains, nhchainlength reset to 1
+
+Setting the LD random seed to 1688584519
+Generated 330891 of the 330891 non-bonded parameter combinations
+Generating 1-4 interactions: fudge = 0.5
+Generated 330891 of the 330891 1-4 parameter combinations
+Excluding 2 bonded neighbours molecule type 'SOL'
+Cleaning up constraints and constant bonded interactions with virtual sites
+Removing all charge groups because cutoff-scheme=Verlet
+Analysing residue names:
+There are:   221      Water residues
+Number of degrees of freedom in T-Coupling group System is 1323.00
+Determining Verlet buffer for a tolerance of 0.005 kJ/mol/ps at 300 K
+Calculated rlist for 1x1 atom pair-list as 0.938 nm, buffer size 0.038 nm
+Set rlist, assuming 4x4 atom pair-list, to 0.902 nm, buffer size 0.002 nm
+Note that mdrun will redetermine rlist based on the actual pair-list setup
+Calculating fourier grid dimensions for X Y Z
+Using a fourier grid of 16x16x16, spacing 0.117 0.117 0.117
+Estimate for the relative computational load of the PME mesh part: 0.22
+This run will generate roughly 579 Mb of data
+
+There was 1 note
+
+GROMACS reminds you: "It's Because Of the Metric System" (Pulp Fiction)
+
+[spanahi@imospc17 part4]$ ls
+boxsize.xvg    sim.log             water_npt.cpt  water_npt.tpr  water.top
+mdout.mdp      TIP4P-Fls.itp       water_npt.edr  water_npt.trr
+#mdout.mdp.1#  tip4pWater.gro      water_npt.gro  water-nve.mdp
+#mdout.mdp.2#  #tip4pWater.gro.1#  water_npt.log  water-nvt.mdp
+mulnvtprog     #tip4pWater.gro.2#  water-npt.mdp  water_nvt.tpr
+[spanahi@imospc17 part4]$ gmx mdrun -v -deffnm water-nvt
+                      :-) GROMACS - gmx mdrun, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx mdrun -v -deffnm water-nvt
+
+
+-------------------------------------------------------
+Program:     gmx mdrun, version 2016.4
+Source file: src/gromacs/options/options.cpp (line 258)
+Function:    void gmx::Options::finish()
+
+Error in user input:
+Invalid input values
+  In option s
+    Required option was not provided, and the default file 'topol' does not
+    exist or is not accessible.
+    The following extensions were tried to complete the file name:
+      .tpr
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+[spanahi@imospc17 part4]$ gmx mdrun -v -deffnm water_nvt
+                      :-) GROMACS - gmx mdrun, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx mdrun, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx mdrun -v -deffnm water_nvt
+
+
+Running on 1 node with total 4 cores, 8 logical cores
+Hardware detected:
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
+    SIMD instructions most likely to fit this hardware: AVX2_256
+    SIMD instructions selected at GROMACS compile time: AVX2_256
+
+  Hardware topology: Full, with devices
+
+Reading file water_nvt.tpr, VERSION 2016.4 (single precision)
+Using 1 MPI thread
+Using 8 OpenMP threads 
+
+starting mdrun 'Pure Water TIP4P'
+1500000 steps,   3000.0 ps.
+step 1499900, remaining wall clock time:     0 s          
+Writing final coordinates.
+step 1500000, remaining wall clock time:     0 s          
+               Core t (s)   Wall t (s)        (%)
+       Time:     2753.669      344.209      800.0
+                 (ns/day)    (hour/ns)
+Performance:      753.032        0.032
+
+GROMACS reminds you: "I Could Take You Home and Abuse You" (Magnapop)
+
+[spanahi@imospc17 part4]$ gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_RMSD.xvg
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_RMSD.xvg
+
+Opened water_nvt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Conserved-En. 
+  9  Temperature     10  Pres.-DC        11  Pressure        12  Vir-XX        
+ 13  Vir-XY          14  Vir-XZ          15  Vir-YX          16  Vir-YY        
+ 17  Vir-YZ          18  Vir-ZX          19  Vir-ZY          20  Vir-ZZ        
+ 21  Pres-XX         22  Pres-XY         23  Pres-XZ         24  Pres-YX       
+ 25  Pres-YY         26  Pres-YZ         27  Pres-ZX         28  Pres-ZY       
+ 29  Pres-ZZ         30  #Surf*SurfTen   31  T-System      
+
+^C
+[spanahi@imospc17 part4]$ gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp-heatcapacityV.xvg -fluct-prop
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp-heatcapacityV.xvg -fluct-prop
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2016.4
+Source file: src/gromacs/commandline/cmdlineparser.cpp (line 235)
+Function:    void gmx::CommandLineParser::parse(int*, char**)
+
+Error in user input:
+Invalid command-line options
+    Unknown command-line option -fluct-prop
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+[spanahi@imospc17 part4]$ gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp-heatcapacityV.xvg -fluct-props
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp-heatcapacityV.xvg -fluct-props
+
+
+-------------------------------------------------------
+Program:     gmx energy, version 2016.4
+Source file: src/gromacs/commandline/cmdlineparser.cpp (line 235)
+Function:    void gmx::CommandLineParser::parse(int*, char**)
+
+Error in user input:
+Invalid command-line options
+    Unknown command-line option -fluct-props
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------
+[spanahi@imospc17 part4]$ gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp.xvg
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -s water_nvt.tpr -f water_nvt.edr -o totEnergy_temp.xvg
+
+Opened water_nvt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Conserved-En. 
+  9  Temperature     10  Pres.-DC        11  Pressure        12  Vir-XX        
+ 13  Vir-XY          14  Vir-XZ          15  Vir-YX          16  Vir-YY        
+ 17  Vir-YZ          18  Vir-ZX          19  Vir-ZY          20  Vir-ZZ        
+ 21  Pres-XX         22  Pres-XY         23  Pres-XZ         24  Pres-YX       
+ 25  Pres-YY         26  Pres-YZ         27  Pres-ZX         28  Pres-ZY       
+ 29  Pres-ZZ         30  #Surf*SurfTen   31  T-System      
+
+7
+9
+
+Last energy frame read 150000 time 3000.000         
+
+Statistics over 1500001 steps [ 0.0000 through 3000.0000 ps ], 2 data sets
+All statistics are over 1500001 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Total Energy               -7496.81       0.78    117.087   -4.86653  (kJ/mol)
+Temperature                     300    9.4e-05    11.5382 -0.000154612  (K)
+
+GROMACS reminds you: "You could give Aristotle a tutorial. And you could thrill him to the core of his being. Such is the privilege of living after Newton, Darwin, Einstein, Planck, Watson, Crick and their colleagues." (Richard Dawkins)
+
+[spanahi@imospc17 part4]$ gnuplot 
+boxsize.xvg         #tip4pWater.gro.2#  water_nvt.cpt
+mdout.mdp           totEnergy_temp.xvg  water_nvt.edr
+#mdout.mdp.1#       water_npt.cpt       water_nvt.gro
+#mdout.mdp.2#       water_npt.edr       water_nvt.log
+mulnvtprog          water_npt.gro       water-nvt.mdp
+.mulnvtprog.swp     water_npt.log       water_nvt.tpr
+sim.log             water-npt.mdp       water_nvt.trr
+TIP4P-Fls.itp       water_npt.tpr       water.top
+tip4pWater.gro      water_npt.trr       
+#tip4pWater.gro.1#  water-nve.mdp       
+[spanahi@imospc17 part4]$ gnuplot totEnergy_temp.xvg 
+
+@    title "GROMACS Energies"
+^
+"totEnergy_temp.xvg", line 14: invalid character @
+
+[spanahi@imospc17 part4]$ plot "totEnergy_temp.xvg" 
+bash: plot: command not found
+[spanahi@imospc17 part4]$ gnuplot totEnergy_temp.xvg 
+
+@    title "GROMACS Energies"
+^
+"totEnergy_temp.xvg", line 14: invalid character @
+
+[spanahi@imospc17 part4]$ xmgrace totEnergy_temp.xvg 
+[spanahi@imospc17 part4]$ xmgrace totEnergy_temp.xvg -nxy
+Missing filename for nxy data
+Usage of xmgrace command line arguments: 
+-autoscale [x|y|xy|none]              Set autoscale type
+-barebones                            Turn off all toolbars
+-batch     [batch_file]               Execute batch_file on start up
+-block     [block_data]               Assume data file is block data
+-bxy       [x:y:etc.]                 Form a set from the current block data set
+                                        using the current set type from columns
+                                        given in the argument
+-datehint  [iso|european|us
+            |days|seconds|nohint]     Set the hint for dates analysis
+                                        (it is only a hint for the parser)
+-dpipe     [descriptor]               Read data from descriptor on startup
+-fixed     [width] [height]           Set canvas size fixed to width*height
+-free                                 Use free page layout
+-graph     [graph_number]             Set the current graph number
+-graphtype [xy|chart|fixed|polar|pie] Set the type of the current graph
+-hardcopy                             No interactive session, just print and
+                                        quit
+-hdevice   [hardcopy_device_name]     Set default hardcopy device
+-install                              Install private colormap
+-legend    [load]                     Turn the graph legend on
+-log       [x|y|xy]                   Set the axis scaling of the current graph
+                                        to logarithmic
+-maxpath   [length]                   Set the maximal drawing path length
+-mono                                 Run Grace in monochrome mode (affects
+                                        the display only)
+-netcdf    [netcdf file]              Assume data file is in netCDF format
+-netcdfxy  [X var name] [Y var name]  If -netcdf was used previously, read from
+                                        the netCDF file 'X var name' and 'Y
+                                        var name' and create a set. If 'X var
+                                        name' is "null" then load the
+                                        index of Y to X
+-noask                                Assume the answer is yes to all requests -
+                                        if the operation would overwrite a file,
+                                        grace will do so without prompting
+-noinstall                            Don't use private colormap
+-noprint                              In batch mode, do not print
+-nosafe                               Disable safe mode
+-nosigcatch                           Don't catch signals
+-npipe     [file]                     Read data from named pipe on startup
+-nxy       [nxy_file]                 Assume data file is in X Y1 Y2 Y3 ...
+                                        format
+-param     [parameter_file]           Load parameters from parameter_file to the
+                                        current graph
+-pexec     [parameter_string]         Interpret string as a parameter setting
+-pipe                                 Read data from stdin on startup
+-printfile [file for hardcopy output] Save print output to file 
+-remove                               Remove data file after read
+-results   [results_file]             Write results of some data manipulations
+                                        to results_file
+-rvideo                               Exchange the color indices for black and
+                                        white
+-safe                                 Safe mode (default)
+-saveall   [save_file]                Save all to save_file
+-seed      [seed_value]               Integer seed for random number generator
+-source    [disk|pipe]                Source type of next data file
+-timer     [delay]                    Set allowed time slice for real time
+                                        inputs to delay ms
+-timestamp                            Add timestamp to plot
+-settype   [xy|xydx|...]              Set the type of the next data file
+-version                              Show the program version
+-viewport  [xmin ymin xmax ymax]      Set the viewport for the current graph
+-wd        [directory]                Set the working directory
+-world     [xmin ymin xmax ymax]      Set the world coordinates for the
+                                        current graph
+-usage|-help                          This message
+
+ ** If it scrolls too fast, run `xmgrace -help | more' **
+[spanahi@imospc17 part4]$ xmgrace -nxy totEnergy_temp.xvg
+[spanahi@imospc17 part4]$ cp water-nvt.mdp template.mdp
+[spanahi@imospc17 part4]$ vim template.mdp 
+[spanahi@imospc17 part4]$ ll
+total 143812
+-rw-r--r-- 1 spanahi tckurs    25227 Nov 15 13:06 boxsize.xvg
+-rw-r--r-- 1 spanahi tckurs    11888 Nov 15 13:14 mdout.mdp
+-rw-r--r-- 1 spanahi tckurs    11901 Nov 15 12:54 #mdout.mdp.1#
+-rw-r--r-- 1 spanahi tckurs    11891 Nov 15 13:02 #mdout.mdp.2#
+-rw-r--r-- 1 spanahi tckurs      698 Nov 15 13:15 mulnvtprog
+-rw-r--r-- 1 spanahi tckurs     3165 Nov 15 12:57 sim.log
+-rw-r--r-- 1 spanahi tckurs     3787 Nov 15 13:37 template.mdp
+-rw-r--r-- 1 spanahi tckurs     2875 Oct 25 14:55 TIP4P-Fls.itp
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:57 tip4pWater.gro
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:56 #tip4pWater.gro.1#
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:57 #tip4pWater.gro.2#
+-rw-r--r-- 1 spanahi tckurs  5850736 Nov 15 13:25 totEnergy_temp.xvg
+-rw-r--r-- 1 spanahi tckurs    23172 Nov 15 13:03 water_npt.cpt
+-rw-r--r-- 1 spanahi tckurs  2641112 Nov 15 13:03 water_npt.edr
+-rw-r--r-- 1 spanahi tckurs    61050 Nov 15 13:03 water_npt.gro
+-rw-r--r-- 1 spanahi tckurs  1964885 Nov 15 13:03 water_npt.log
+-rw-r--r-- 1 spanahi tckurs     3746 Nov 15 13:01 water-npt.mdp
+-rw-r--r-- 1 spanahi tckurs    37828 Nov 15 13:02 water_npt.tpr
+-rw-r--r-- 1 spanahi tckurs   118008 Nov 15 13:03 water_npt.trr
+-rw-r--r-- 1 spanahi tckurs     3744 Nov 15 12:54 water-nve.mdp
+-rw-r--r-- 1 spanahi tckurs    22948 Nov 15 13:20 water_nvt.cpt
+-rw-r--r-- 1 spanahi tckurs 66600948 Nov 15 13:20 water_nvt.edr
+-rw-r--r-- 1 spanahi tckurs    61050 Nov 15 13:20 water_nvt.gro
+-rw-r--r-- 1 spanahi tckurs 63169387 Nov 15 13:20 water_nvt.log
+-rw-r--r-- 1 spanahi tckurs     3782 Nov 15 13:12 water-nvt.mdp
+-rw-r--r-- 1 spanahi tckurs    37828 Nov 15 13:14 water_nvt.tpr
+-rw-r--r-- 1 spanahi tckurs  6422136 Nov 15 13:20 water_nvt.trr
+-rw-r--r-- 1 spanahi tckurs      123 Nov 15 13:00 water.top
+[spanahi@imospc17 part4]$ vim template.mdp 
+[spanahi@imospc17 part4]$ chmod u+x mulnvtprog 
+[spanahi@imospc17 part4]$ ll
+total 143812
+-rw-r--r-- 1 spanahi tckurs    25227 Nov 15 13:06 boxsize.xvg
+-rw-r--r-- 1 spanahi tckurs    11888 Nov 15 13:14 mdout.mdp
+-rw-r--r-- 1 spanahi tckurs    11901 Nov 15 12:54 #mdout.mdp.1#
+-rw-r--r-- 1 spanahi tckurs    11891 Nov 15 13:02 #mdout.mdp.2#
+-rwxr--r-- 1 spanahi tckurs      698 Nov 15 13:15 mulnvtprog
+-rw-r--r-- 1 spanahi tckurs     3165 Nov 15 12:57 sim.log
+-rw-r--r-- 1 spanahi tckurs     3787 Nov 15 13:37 template.mdp
+-rw-r--r-- 1 spanahi tckurs     2875 Oct 25 14:55 TIP4P-Fls.itp
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:57 tip4pWater.gro
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:56 #tip4pWater.gro.1#
+-rw-r--r-- 1 spanahi tckurs    39842 Nov 15 12:57 #tip4pWater.gro.2#
+-rw-r--r-- 1 spanahi tckurs  5850736 Nov 15 13:25 totEnergy_temp.xvg
+-rw-r--r-- 1 spanahi tckurs    23172 Nov 15 13:03 water_npt.cpt
+-rw-r--r-- 1 spanahi tckurs  2641112 Nov 15 13:03 water_npt.edr
+-rw-r--r-- 1 spanahi tckurs    61050 Nov 15 13:03 water_npt.gro
+-rw-r--r-- 1 spanahi tckurs  1964885 Nov 15 13:03 water_npt.log
+-rw-r--r-- 1 spanahi tckurs     3746 Nov 15 13:01 water-npt.mdp
+-rw-r--r-- 1 spanahi tckurs    37828 Nov 15 13:02 water_npt.tpr
+-rw-r--r-- 1 spanahi tckurs   118008 Nov 15 13:03 water_npt.trr
+-rw-r--r-- 1 spanahi tckurs     3744 Nov 15 12:54 water-nve.mdp
+-rw-r--r-- 1 spanahi tckurs    22948 Nov 15 13:20 water_nvt.cpt
+-rw-r--r-- 1 spanahi tckurs 66600948 Nov 15 13:20 water_nvt.edr
+-rw-r--r-- 1 spanahi tckurs    61050 Nov 15 13:20 water_nvt.gro
+-rw-r--r-- 1 spanahi tckurs 63169387 Nov 15 13:20 water_nvt.log
+-rw-r--r-- 1 spanahi tckurs     3782 Nov 15 13:12 water-nvt.mdp
+-rw-r--r-- 1 spanahi tckurs    37828 Nov 15 13:14 water_nvt.tpr
+-rw-r--r-- 1 spanahi tckurs  6422136 Nov 15 13:20 water_nvt.trr
+-rw-r--r-- 1 spanahi tckurs      123 Nov 15 13:00 water.top
+[spanahi@imospc17 part4]$ chmod u+x mulnvtprog 
+[spanahi@imospc17 part4]$ ./mulnvtprog 295
+bash: ./mulnvtprog: /bin/bash^M: bad interpreter: No such file or directory
+[spanahi@imospc17 part4]$ ./mulnvtprog 295
+bash: ./mulnvtprog: /bin/bash^M: bad interpreter: No such file or directory
+[spanahi@imospc17 part4]$ ./mulnvtprog.sh 295
+bash: ./mulnvtprog.sh: /bin/bash^M: bad interpreter: No such file or directory
+[spanahi@imospc17 part4]$ which bash
+/usr/bin/bash
+[spanahi@imospc17 part4]$ ./mulnvtprog.sh 295
+bash: ./mulnvtprog.sh: /usr/bin/bash^M: bad interpreter: No such file or directory
+[spanahi@imospc17 part4]$ sed -i -e 's/\r$//' mulnvtprog.sh 
+[spanahi@imospc17 part4]$ ./mulnvtprog.sh 295
+Grompping now (log file in run_295.grompp_log
+Running MD (log file in run_295.mdrun_log)
+Getting energy and estimate error
+./mulnvtprog.sh: line 13: warning: here-document at line 10 delimited by end-of-file (wanted `EOF')
+[spanahi@imospc17 part4]$ cd mulNVT/
+[spanahi@imospc17 mulNVT]$ ls
+mulnvtprog.sh  template.mdp  water_nvt.gro  water.top
+[spanahi@imospc17 mulNVT]$ vim mulnvtprog.sh 
+[spanahi@imospc17 mulNVT]$ ./mulnvtprog.sh 295
+Grompping now (log file in run_295.grompp_log
+Running MD (log file in run_295.mdrun_log)
+Getting energy and estimate error
+[spanahi@imospc17 mulNVT]$ vim 
+mulnvtprog.sh       water_energies.dat  water.top
+template.mdp        water_nvt.gro       
+[spanahi@imospc17 mulNVT]$ vim 
+mulnvtprog.sh       water_energies.dat  water.top
+template.mdp        water_nvt.gro       
+[spanahi@imospc17 mulNVT]$ vim 
+mulnvtprog.sh       water_energies.dat  water.top
+template.mdp        water_nvt.gro       
+[spanahi@imospc17 mulNVT]$ vim mulnvtprog.sh 
+[spanahi@imospc17 mulNVT]$ ./mulnvtprog.sh 295
+Grompping now (log file in run_295.grompp_log
+Running MD (log file in run_295.mdrun_log)
+Getting energy and estimate error
+[spanahi@imospc17 mulNVT]$ vmd run_295.gro
+/opt/vmd/1.9.3/vmd_LINUXAMD64: /lib64/libGL.so.1: no version information available (required by /opt/vmd/1.9.3/vmd_LINUXAMD64)
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 8 CPUs detected.
+Info)   CPU features: SSE2 AVX AVX2 FMA 
+Info) Free system memory: 27GB (85%)
+Info) Creating CUDA device pool and initializing hardware...
+Info) Detected 1 available CUDA accelerator:
+Info) [0] NVIDIA GeForce GTX 1050 Ti  6 SM_6.1 @ 1.42 GHz, 3.9GB RAM, KTO, AE2, ZCP
+Warning) Detected X11 'Composite' extension: if incorrect display occurs
+Warning) try disabling this X server option.  Most OpenGL drivers
+Warning) disable stereoscopic display when 'Composite' is enabled.
+Info) OpenGL renderer: NVIDIA GeForce GTX 1050 Ti/PCIe/SSE2
+Info)   Features: STENCIL MSAA(4) MDE CVA MTX NPOT PP PS GLSL(OVFGS) 
+Info)   Full GLSL rendering mode is available.
+Info)   Textures: 2-D (32768x32768), 3-D (16384x16384x16384), Multitexture (4)
+Info) Detected 1 available TachyonL/OptiX ray tracing accelerator
+Info)   Compiling 1 OptiX shaders on 1 target GPU...
+Info) Dynamically loaded 2 plugins in directory:
+Info) /opt/vmd/1.9.3/plugins/LINUXAMD64/molfile
+Info) File loading in progress, please wait.
+Info) Using plugin gro for structure file run_295.gro
+Info) Using plugin gro for coordinates from file run_295.gro
+Info) Determining bond structure from distance search ...
+Info) Finished with coordinate file run_295.gro.
+Info) Analyzing structure ...
+Info)    Atoms: 884
+Info)    Bonds: 1105
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 221
+Info)    Waters: 221
+Info)    Segments: 1
+Info)    Fragments: 221   Protein: 0   Nucleic: 0
+vmd > Info) Using plugin trr for coordinates from file /home/spanahi/Documents/part4/mulNVT/run_295.trr
+Info) Finished with coordinate file /home/spanahi/Documents/part4/mulNVT/run_295.trr.
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) Exiting normally.
+[spanahi@imospc17 mulNVT]$ vmd
+/opt/vmd/1.9.3/vmd_LINUXAMD64: /lib64/libGL.so.1: no version information available (required by /opt/vmd/1.9.3/vmd_LINUXAMD64)
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 8 CPUs detected.
+Info)   CPU features: SSE2 AVX AVX2 FMA 
+Info) Free system memory: 27GB (85%)
+Info) Creating CUDA device pool and initializing hardware...
+Info) Detected 1 available CUDA accelerator:
+Info) [0] NVIDIA GeForce GTX 1050 Ti  6 SM_6.1 @ 1.42 GHz, 3.9GB RAM, KTO, AE2, ZCP
+Warning) Detected X11 'Composite' extension: if incorrect display occurs
+Warning) try disabling this X server option.  Most OpenGL drivers
+Warning) disable stereoscopic display when 'Composite' is enabled.
+Info) OpenGL renderer: NVIDIA GeForce GTX 1050 Ti/PCIe/SSE2
+Info)   Features: STENCIL MSAA(4) MDE CVA MTX NPOT PP PS GLSL(OVFGS) 
+Info)   Full GLSL rendering mode is available.
+Info)   Textures: 2-D (32768x32768), 3-D (16384x16384x16384), Multitexture (4)
+Info) Detected 1 available TachyonL/OptiX ray tracing accelerator
+Info)   Compiling 1 OptiX shaders on 1 target GPU...
+Info) Dynamically loaded 2 plugins in directory:
+Info) /opt/vmd/1.9.3/plugins/LINUXAMD64/molfile
+vmd > Info) Using plugin gro for structure file /home/spanahi/Documents/part4/mulNVT/run_295.gro
+Info) Using plugin gro for coordinates from file /home/spanahi/Documents/part4/mulNVT/run_295.gro
+Info) Determining bond structure from distance search ...
+Info) Analyzing structure ...
+Info)    Atoms: 884
+Info)    Bonds: 1105
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 221
+Info)    Waters: 221
+Info)    Segments: 1
+Info)    Fragments: 221   Protein: 0   Nucleic: 0
+Info) Finished with coordinate file /home/spanahi/Documents/part4/mulNVT/run_295.gro.
+Info) Using plugin trr for coordinates from file /home/spanahi/Documents/part4/mulNVT/run_295.trr
+Info) Finished with coordinate file /home/spanahi/Documents/part4/mulNVT/run_295.trr.
+Info) VMD for LINUXAMD64, version 1.9.3 (November 30, 2016)
+Info) Exiting normally.
+[spanahi@imospc17 mulNVT]$ for temp in $(seq 295 1 305);do ./mulnvtprog.sh ${temp}; done
+Grompping now (log file in run_295.grompp_log
+Running MD (log file in run_295.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_296.grompp_log
+Running MD (log file in run_296.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_297.grompp_log
+Running MD (log file in run_297.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_298.grompp_log
+Running MD (log file in run_298.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_299.grompp_log
+Running MD (log file in run_299.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_300.grompp_log
+Running MD (log file in run_300.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_301.grompp_log
+Running MD (log file in run_301.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_302.grompp_log
+Running MD (log file in run_302.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_303.grompp_log
+Running MD (log file in run_303.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_304.grompp_log
+Running MD (log file in run_304.mdrun_log)
+Getting energy and estimate error
+Grompping now (log file in run_305.grompp_log
+Running MD (log file in run_305.mdrun_log)
+Getting energy and estimate error
+[spanahi@imospc17 mulNVT]$ gnuplot
+
+	G N U P L O T
+	Version 5.0 patchlevel 0    last modified 2015-01-01 
+
+	Copyright (C) 1986-1993, 1998, 2004, 2007-2015
+	Thomas Williams, Colin Kelley and many others
+
+	gnuplot home:     http://www.gnuplot.info
+	faq, bugs, etc:   type "help FAQ"
+	immediate help:   type "help"  (plot window: hit 'h')
+
+Terminal type set to 'qt'
+gnuplot> plot "water_energies.dat" using 1:2:3 with errorbars
+
+(gnuplot_qt:8728): dbind-WARNING **: 14:06:56.081: Couldn't connect to accessibility bus: Failed to connect to socket /tmp/dbus-cZRpCzG1YQ: Connection refused
+gnuplot> set xrange [294:306]
+gnuplot> replot
+gnuplot> f(x) = a + b*(x-300) + c*(x-300)**2
+gnuplot> fit f(x) "water_energies.dat" using 1:2:3 via a,b,c
+         warning: 
+	> Implied independent variable y not found in fit function.
+	> Assuming version 4 syntax with zerror in column 3 but no zerror keyword.
+
+iter      chisq       delta/lim  lambda   a             b             c            
+   0 3.7737421440e+07   0.00e+00  2.13e+00    1.000000e+00   1.000000e+00   1.000000e+00
+   1 1.2176807354e+07  -2.10e+05  2.13e-01   -4.023624e+02  -1.774197e+02  -3.843020e+02
+   2 3.0919781999e+05  -3.84e+06  2.13e-02   -6.358149e+03  -3.514354e+01  -6.529645e+01
+   3 2.5604302724e+00  -1.21e+10  2.13e-03   -7.492952e+03   1.840951e+01  -2.655446e-01
+   4 1.4349416683e+00  -7.84e+04  2.13e-04   -7.495121e+03   1.851360e+01  -1.411126e-01
+   5 1.4349416679e+00  -2.87e-05  2.13e-05   -7.495121e+03   1.851361e+01  -1.411102e-01
+iter      chisq       delta/lim  lambda   a             b             c            
+
+After 5 iterations the fit converged.
+final sum of squares of residuals : 1.43494
+rel. change during last iteration : -2.86785e-10
+
+degrees of freedom    (FIT_NDF)                        : 8
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.423518
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.179368
+p-value of the Chisq distribution (FIT_P)              : 0.993736
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -7495.12         +/- 0.866        (0.01155%)
+b               = 18.5136          +/- 0.1647       (0.8898%)
+c               = -0.14111         +/- 0.06189      (43.86%)
+
+correlation matrix of the fit parameters:
+                a      b      c      
+a               1.000 
+b              -0.243  1.000 
+c              -0.800  0.362  1.000 
+gnuplot> replot f(x)
+gnuplot> quitGtk-Message: 14:11:40.272: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: 14:12:08.696: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: 14:12:24.417: GtkDialog mapped without a transient parent. This is discouraged.
+
+[spanahi@imospc17 mulNVT]$ 
+
+
+
+[spanahi@imospc17 part4]$ gmx energy -s water_nvt.tpr -f water_nvt.edr -fluct_props -o cV.xvg
+                      :-) GROMACS - gmx energy, 2016.4 (-:
+
+                            GROMACS is written by:
+     Emile Apol      Rossen Apostolov  Herman J.C. Berendsen    Par Bjelkmar   
+ Aldert van Buuren   Rudi van Drunen     Anton Feenstra    Gerrit Groenhof  
+ Christoph Junghans   Anca Hamuraru    Vincent Hindriksen Dimitrios Karkoulis
+    Peter Kasson        Jiri Kraus      Carsten Kutzner      Per Larsson    
+  Justin A. Lemkul   Magnus Lundborg   Pieter Meulenhoff    Erik Marklund   
+   Teemu Murtola       Szilard Pall       Sander Pronk      Roland Schulz   
+  Alexey Shvetsov     Michael Shirts     Alfons Sijbers     Peter Tieleman  
+  Teemu Virolainen  Christian Wennberg    Maarten Wolf   
+                           and the project leaders:
+        Mark Abraham, Berk Hess, Erik Lindahl, and David van der Spoel
+
+Copyright (c) 1991-2000, University of Groningen, The Netherlands.
+Copyright (c) 2001-2017, The GROMACS development team at
+Uppsala University, Stockholm University and
+the Royal Institute of Technology, Sweden.
+check out http://www.gromacs.org for more information.
+
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+GROMACS:      gmx energy, version 2016.4
+Executable:   /home/imostest/gromacs/bin/gmx
+Data prefix:  /home/imostest/gromacs
+Working dir:  /home/spanahi/Documents/part4
+Command line:
+  gmx energy -s water_nvt.tpr -f water_nvt.edr -fluct_props -o cV.xvg
+
+Opened water_nvt.edr as single precision energy file
+
+Select the terms you want from the following list by
+selecting either (part of) the name or the number or a combination.
+End your selection with an empty line or a zero.
+-------------------------------------------------------------------
+  1  LJ-(SR)          2  Disper.-corr.    3  Coulomb-(SR)     4  Coul.-recip.  
+  5  Potential        6  Kinetic-En.      7  Total-Energy     8  Conserved-En. 
+  9  Temperature     10  Pres.-DC        11  Pressure        12  Vir-XX        
+ 13  Vir-XY          14  Vir-XZ          15  Vir-YX          16  Vir-YY        
+ 17  Vir-YZ          18  Vir-ZX          19  Vir-ZY          20  Vir-ZZ        
+ 21  Pres-XX         22  Pres-XY         23  Pres-XZ         24  Pres-YX       
+ 25  Pres-YY         26  Pres-YZ         27  Pres-ZX         28  Pres-ZY       
+ 29  Pres-ZZ         30  #Surf*SurfTen   31  T-System      
+
+7
+9
+
+Last energy frame read 150000 time 3000.000         
+
+Statistics over 1500001 steps [ 0.0000 through 3000.0000 ps ], 2 data sets
+All statistics are over 1500001 points
+
+Energy                      Average   Err.Est.       RMSD  Tot-Drift
+-------------------------------------------------------------------------------
+Total Energy               -7496.81       0.78    117.087   -4.86653  (kJ/mol)
+Temperature                     300    9.4e-05    11.5382 -0.000154612  (K)
+
+You may want to use the -driftcorr flag in order to correct
+for spurious drift in the graphs. Note that this is not
+a substitute for proper equilibration and sampling!
+
+WARNING: nmol = 1, this may not be what you want.
+
+Temperature dependent fluctuation properties at T = 300.
+
+Heat capacities obtained from fluctuations do *not* include
+quantum corrections. If you want to get a more accurate estimate
+please use the g_dos program.
+
+WARNING: Please verify that your simulations are converged and perform
+a block-averaging error analysis (not implemented in g_energy yet)
+Heat capacity at constant volume Cv      =    18320.6 J/(mol K)
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+M. P. Allen and D. J. Tildesley
+Computer simulation of liquids
+Oxford Science Publications 1 (1987) pp. 1
+-------- -------- --- Thank You --- -------- --------
+
+
+GROMACS reminds you: "AH ....Satisfaction" (IRIX imapd)
+
