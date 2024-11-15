@@ -1,0 +1,38 @@
+
+
+*******************************************************************************
+Fri Nov 15 14:09:40 2024
+
+
+FIT:    data read from "water_energies.dat" using 1:2:3
+        format = x:z:s
+        x range restricted to [294.000 : 306.000]
+        #datapoints = 11
+function used for fitting: f(x)
+	f(x) = a + b*(x-300) + c*(x-300)**2
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b             c            
+   0 3.7737421440e+07   0.00e+00  2.13e+00    1.000000e+00   1.000000e+00   1.000000e+00
+   5 1.4349416679e+00  -2.87e-05  2.13e-05   -7.495121e+03   1.851361e+01  -1.411102e-01
+
+After 5 iterations the fit converged.
+final sum of squares of residuals : 1.43494
+rel. change during last iteration : -2.86785e-10
+
+degrees of freedom    (FIT_NDF)                        : 8
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.423518
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.179368
+p-value of the Chisq distribution (FIT_P)              : 0.993736
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -7495.12         +/- 0.866        (0.01155%)
+b               = 18.5136          +/- 0.1647       (0.8898%)
+c               = -0.14111         +/- 0.06189      (43.86%)
+
+correlation matrix of the fit parameters:
+                a      b      c      
+a               1.000 
+b              -0.243  1.000 
+c              -0.800  0.362  1.000 
